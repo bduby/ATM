@@ -1,0 +1,205 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Withdrawal</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.transaction</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Withdrawal (atm.transaction)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Withdrawal</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Withdrawal$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 21)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file Withdrawal.java    
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.transaction;
+<i>9</i>&nbsp;import atm.ATM;
+<i>10</i>&nbsp;import atm.Session;
+<i>11</i>&nbsp;import atm.physical.*;
+<i>12</i>&nbsp;import banking.AccountInformation;
+<i>13</i>&nbsp;import banking.Card;
+<i>14</i>&nbsp;import banking.Message;
+<i>15</i>&nbsp;import banking.Money;
+<i>16</i>&nbsp;import banking.Status;
+<i>17</i>&nbsp;import banking.Receipt;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;/** Representation for a cash withdrawal transaction
+<i>20</i>&nbsp; */
+<b class="nc"><i>21</i>&nbsp;public class Withdrawal extends Transaction</b>
+<i>22</i>&nbsp;{
+<i>23</i>&nbsp;    /** Constructor
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     *  @param atm the ATM used to communicate with customer
+<i>26</i>&nbsp;     *  @param session the session in which the transaction is being performed
+<i>27</i>&nbsp;     *  @param card the customer&#39;s card
+<i>28</i>&nbsp;     *  @param pin the PIN entered by the customer
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public Withdrawal(ATM atm, Session session, Card card, int pin)
+<i>31</i>&nbsp;    {
+<b class="nc"><i>32</i>&nbsp;        super(atm, session, card, pin);</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;    
+<i>35</i>&nbsp;    /** Get specifics for the transaction from the customer
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     *  @return message to bank for initiating this transaction
+<i>38</i>&nbsp;     *  @exception CustomerConsole.Cancelled if customer cancelled this transaction
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    protected Message getSpecificsFromCustomer() throws CustomerConsole.Cancelled
+<i>41</i>&nbsp;    {
+<b class="nc"><i>42</i>&nbsp;        from = atm.getCustomerConsole().readMenuChoice(</b>
+<i>43</i>&nbsp;            &quot;Account to withdraw from&quot;,
+<i>44</i>&nbsp;            AccountInformation.ACCOUNT_NAMES);
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        String [] amountOptions = { &quot;$20&quot;, &quot;$40&quot;, &quot;$60&quot;, &quot;$100&quot;, &quot;$200&quot; };</b>
+<b class="nc"><i>47</i>&nbsp;        Money [] amountValues = { </b>
+<i>48</i>&nbsp;                                  new Money(20), new Money(40), new Money(60),
+<i>49</i>&nbsp;                                  new Money(100), new Money(200)
+<i>50</i>&nbsp;                                };
+<i>51</i>&nbsp;                                  
+<b class="nc"><i>52</i>&nbsp;        String amountMessage = &quot;&quot;;</b>
+<b class="nc"><i>53</i>&nbsp;        boolean validAmount = false;</b>
+<i>54</i>&nbsp;        
+<b class="nc"><i>55</i>&nbsp;        while (! validAmount)</b>
+<i>56</i>&nbsp;        {
+<b class="nc"><i>57</i>&nbsp;            amount = amountValues [ </b>
+<b class="nc"><i>58</i>&nbsp;                atm.getCustomerConsole().readMenuChoice(</b>
+<i>59</i>&nbsp;                    amountMessage + &quot;Amount of cash to withdraw&quot;, amountOptions) ];
+<i>60</i>&nbsp;                            
+<b class="nc"><i>61</i>&nbsp;            validAmount = atm.getCashDispenser().checkCashOnHand(amount);</b>
+<i>62</i>&nbsp;
+<b class="nc"><i>63</i>&nbsp;            if (! validAmount)</b>
+<b class="nc"><i>64</i>&nbsp;                amountMessage = &quot;Insufficient cash available\n&quot;;</b>
+<i>65</i>&nbsp;        }
+<i>66</i>&nbsp;        
+<b class="nc"><i>67</i>&nbsp;        return new Message(Message.WITHDRAWAL, </b>
+<i>68</i>&nbsp;                           card, pin, serialNumber, from, -1, amount);
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;    
+<i>72</i>&nbsp;    /** Complete an approved transaction
+<i>73</i>&nbsp;     *
+<i>74</i>&nbsp;     *  @return receipt to be printed for this transaction
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    protected Receipt completeTransaction()
+<i>77</i>&nbsp;    {
+<b class="nc"><i>78</i>&nbsp;        atm.getCashDispenser().dispenseCash(amount);</b>
+<b class="nc"><i>79</i>&nbsp;        return new Receipt(this.atm, this.card, this, this.balances) {</b>
+<i>80</i>&nbsp;            {
+<b class="nc"><i>81</i>&nbsp;                detailsPortion = new String[2];</b>
+<b class="nc"><i>82</i>&nbsp;                detailsPortion[0] = &quot;WITHDRAWAL FROM: &quot; + </b>
+<b class="nc"><i>83</i>&nbsp;                                    AccountInformation.ACCOUNT_ABBREVIATIONS[from];</b>
+<b class="nc"><i>84</i>&nbsp;                detailsPortion[1] = &quot;AMOUNT: &quot; + amount.toString();</b>
+<i>85</i>&nbsp;            }
+<i>86</i>&nbsp;        };
+<i>87</i>&nbsp;    }
+<i>88</i>&nbsp;    
+<i>89</i>&nbsp;    /** Account to withdraw from
+<i>90</i>&nbsp;     */ 
+<i>91</i>&nbsp;    private int from;
+<i>92</i>&nbsp;    
+<i>93</i>&nbsp;    /** Amount of money to withdraw
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    private Money amount;           
+<i>96</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: NetworkToBank</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.physical</a> ]
+</div>
+
+<h1>Coverage Summary for Class: NetworkToBank (atm.physical)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NetworkToBank</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (4/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file NetworkToBank.java
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.physical;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import java.net.InetAddress;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import banking.Message;
+<i>13</i>&nbsp;import banking.Balances;
+<i>14</i>&nbsp;import banking.Status;
+<i>15</i>&nbsp;import simulation.Simulation;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;/** Manager for the ATM&#39;s network connection.  In a real ATM, this would 
+<i>18</i>&nbsp; *  manage a physical device; in this simulation,  it uses classes 
+<i>19</i>&nbsp; *  in package simulation to simulate the device.
+<i>20</i>&nbsp; */
+<i>21</i>&nbsp; 
+<i>22</i>&nbsp;public class NetworkToBank
+<i>23</i>&nbsp;{
+<i>24</i>&nbsp;    /** Constructor
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     *  @param log the log in which to record sending of messages and responses
+<i>27</i>&nbsp;     *  @param bankAddress the network address of the bank
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    public NetworkToBank(Log log, InetAddress bankAddress)
+<b class="fc"><i>30</i>&nbsp;    {</b>
+<b class="fc"><i>31</i>&nbsp;        this.log = log;</b>
+<b class="fc"><i>32</i>&nbsp;        this.bankAddress = bankAddress;</b>
+<b class="fc"><i>33</i>&nbsp;    }</b>
+<i>34</i>&nbsp;    
+<i>35</i>&nbsp;    /** Open connection to bank at system startup
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    public void openConnection()
+<i>38</i>&nbsp;    {
+<i>39</i>&nbsp;        // Since the network is simulated, we don&#39;t have to do anything
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;    
+<i>42</i>&nbsp;    /** Close connection to bank at system shutdown
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public void closeConnection()
+<i>45</i>&nbsp;    {
+<i>46</i>&nbsp;        // Since the network is simulated, we don&#39;t have to do anything
+<b class="nc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;    
+<i>49</i>&nbsp;    /** Send a message to bank
+<i>50</i>&nbsp;     *
+<i>51</i>&nbsp;     *  @param message the message to send
+<i>52</i>&nbsp;     *  @param balances (out) balances in customer&#39;s account as reported
+<i>53</i>&nbsp;     *         by bank
+<i>54</i>&nbsp;     *  @return status code returned by bank
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    public Status sendMessage(Message message, Balances balances)
+<i>57</i>&nbsp;    {
+<i>58</i>&nbsp;        // Log sending of the message
+<i>59</i>&nbsp;        
+<b class="nc"><i>60</i>&nbsp;        log.logSend(message);</b>
+<i>61</i>&nbsp;        
+<i>62</i>&nbsp;        // Simulate the sending of the message - here is where the real code
+<i>63</i>&nbsp;        // to actually send the message over the network would go
+<i>64</i>&nbsp;        
+<b class="nc"><i>65</i>&nbsp;        Status result = Simulation.getInstance().sendMessage(message, balances);</b>
+<i>66</i>&nbsp;        
+<i>67</i>&nbsp;        // Log the response gotten back
+<i>68</i>&nbsp;        
+<b class="nc"><i>69</i>&nbsp;        log.logResponse(result);</b>
+<i>70</i>&nbsp;        
+<b class="nc"><i>71</i>&nbsp;        return result;</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;    
+<i>74</i>&nbsp;    // Log into which to record messages
+<i>75</i>&nbsp;    
+<i>76</i>&nbsp;    private Log log;
+<i>77</i>&nbsp;    
+<i>78</i>&nbsp;    // Network address of the bank
+<i>79</i>&nbsp;    
+<i>80</i>&nbsp;    private InetAddress bankAddress;
+<i>81</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

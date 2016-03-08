@@ -1,0 +1,236 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Receipt</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">banking</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Receipt (banking)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Receipt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 12)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Receipt$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 16)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 28)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file Receipt.java
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package banking;
+<i>9</i>&nbsp;import atm.ATM;
+<i>10</i>&nbsp;import atm.transaction.Transaction;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.util.Date;
+<i>13</i>&nbsp;import java.util.Enumeration;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/** Abstract base class for representation of a receipt to be printed.  Each
+<i>16</i>&nbsp; *  specific type of transaction creates an instance of a concrete subclass
+<i>17</i>&nbsp; *  of this class.  
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;
+<b class="nc"><i>20</i>&nbsp;public abstract class Receipt</b>
+<i>21</i>&nbsp;{
+<i>22</i>&nbsp;    /** Constructor.  This base class constructor will create the portions of the
+<i>23</i>&nbsp;     *  receipt that are common to all types of transaction, and the subclass
+<i>24</i>&nbsp;     *  constructor will create the details portion unique to each type.
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     *  @param atm the ATM where the transaction was done
+<i>27</i>&nbsp;     *  @param card the card that was used
+<i>28</i>&nbsp;     *  @param transaction the Transaction object for the transaction
+<i>29</i>&nbsp;     *  @param balances Balances object giving final balances for account used
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;     
+<i>32</i>&nbsp;    protected Receipt(ATM atm, Card card, Transaction transaction, Balances balances)
+<b class="nc"><i>33</i>&nbsp;    {</b>
+<i>34</i>&nbsp;        // Heading portion of the receipt
+<i>35</i>&nbsp;        
+<b class="nc"><i>36</i>&nbsp;        headingPortion = new String[4];</b>
+<b class="nc"><i>37</i>&nbsp;        headingPortion[0] = new Date().toString();</b>
+<b class="nc"><i>38</i>&nbsp;        headingPortion[1] = atm.getBankName();</b>
+<b class="nc"><i>39</i>&nbsp;        headingPortion[2] = &quot;ATM #&quot; + atm.getID() + &quot; &quot; + atm.getPlace();</b>
+<b class="nc"><i>40</i>&nbsp;        headingPortion[3] = &quot;CARD &quot; + card.getNumber() + </b>
+<b class="nc"><i>41</i>&nbsp;                     &quot; TRANS #&quot; + transaction.getSerialNumber();</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;        // The constructor for each subclass will fill in the details array
+<i>44</i>&nbsp;        // appropriately
+<i>45</i>&nbsp;        
+<i>46</i>&nbsp;        // Balances portion of the receipt
+<i>47</i>&nbsp;        
+<b class="nc"><i>48</i>&nbsp;        balancesPortion = new String[2];</b>
+<b class="nc"><i>49</i>&nbsp;        balancesPortion[0] = &quot;TOTAL BAL: &quot; + balances.getTotal();</b>
+<b class="nc"><i>50</i>&nbsp;        balancesPortion[1] = &quot;AVAILABLE: &quot; + balances.getAvailable();</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /** Get the individual lines to be printed.  Each call to the nextElement()
+<i>54</i>&nbsp;     *  of the enumeration gets one line (as a String)
+<i>55</i>&nbsp;     *  @return Enumeration ??? (Rob edit)
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;     
+<i>58</i>&nbsp;    public Enumeration getLines()
+<i>59</i>&nbsp;    {
+<b class="nc"><i>60</i>&nbsp;        return new Enumeration() {</b>
+<i>61</i>&nbsp;        
+<i>62</i>&nbsp;            // The current portion of the receipt being printed
+<i>63</i>&nbsp;            
+<b class="nc"><i>64</i>&nbsp;            private int portion = 0;</b>
+<i>65</i>&nbsp;            
+<i>66</i>&nbsp;            // The index of the line in the current portion
+<i>67</i>&nbsp;            
+<b class="nc"><i>68</i>&nbsp;            private int index = 0;</b>
+<i>69</i>&nbsp;            
+<i>70</i>&nbsp;            public boolean hasMoreElements()
+<i>71</i>&nbsp;            {
+<b class="nc"><i>72</i>&nbsp;                return portion &lt; 2 || index &lt; balancesPortion.length;</b>
+<i>73</i>&nbsp;            }
+<i>74</i>&nbsp;            
+<i>75</i>&nbsp;            public Object nextElement()
+<i>76</i>&nbsp;            {
+<b class="nc"><i>77</i>&nbsp;                String line = null;</b>
+<i>78</i>&nbsp;                
+<b class="nc"><i>79</i>&nbsp;                switch (portion)</b>
+<i>80</i>&nbsp;                {
+<i>81</i>&nbsp;                    case 0:
+<i>82</i>&nbsp;                    
+<b class="nc"><i>83</i>&nbsp;                        line = headingPortion[index ++];</b>
+<b class="nc"><i>84</i>&nbsp;                        if (index &gt;= headingPortion.length)</b>
+<i>85</i>&nbsp;                        {
+<b class="nc"><i>86</i>&nbsp;                            portion ++;</b>
+<b class="nc"><i>87</i>&nbsp;                            index = 0;</b>
+<i>88</i>&nbsp;                        }
+<i>89</i>&nbsp;                        break;
+<i>90</i>&nbsp;                    
+<i>91</i>&nbsp;                    case 1:
+<i>92</i>&nbsp;                    
+<b class="nc"><i>93</i>&nbsp;                        line = detailsPortion[index ++];</b>
+<b class="nc"><i>94</i>&nbsp;                        if (index &gt;= detailsPortion.length)</b>
+<i>95</i>&nbsp;                        {
+<b class="nc"><i>96</i>&nbsp;                            portion ++;</b>
+<b class="nc"><i>97</i>&nbsp;                            index = 0;</b>
+<i>98</i>&nbsp;                        }
+<i>99</i>&nbsp;                        break;
+<i>100</i>&nbsp;                        
+<i>101</i>&nbsp;                    case 2:
+<i>102</i>&nbsp;                    
+<b class="nc"><i>103</i>&nbsp;                        line = balancesPortion[index ++];</b>
+<i>104</i>&nbsp;                        break;
+<i>105</i>&nbsp;                }
+<b class="nc"><i>106</i>&nbsp;                return line;</b>
+<i>107</i>&nbsp;            }
+<i>108</i>&nbsp;        };
+<i>109</i>&nbsp;    }
+<i>110</i>&nbsp;
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    // Instance variables
+<i>113</i>&nbsp;
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    /** Heading portion of the receipt - common to all forms of receipt
+<i>116</i>&nbsp;     */
+<i>117</i>&nbsp;    private String [] headingPortion;
+<i>118</i>&nbsp;    
+<i>119</i>&nbsp;    /** Transaction details portion of the receipt - specific to each type of
+<i>120</i>&nbsp;     *  transaction, and therefore filled in by subclasses
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    protected String [] detailsPortion;
+<i>123</i>&nbsp;    
+<i>124</i>&nbsp;    /** Ending balances portion of the receipt - common to all forms of receipt
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    private String [] balancesPortion;  
+<i>127</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

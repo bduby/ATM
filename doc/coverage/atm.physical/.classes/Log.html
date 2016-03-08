@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Log</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.physical</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Log (atm.physical)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Log</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (2/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file Log.java
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.physical;
+<i>9</i>&nbsp;import banking.Message;
+<i>10</i>&nbsp;import banking.Money;
+<i>11</i>&nbsp;import banking.Status;
+<i>12</i>&nbsp;import simulation.Simulation;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/** Manager for the ATM&#39;s internal log.  In a real ATM, this would 
+<i>15</i>&nbsp; *  manage a physical device; in this simulation,  it uses classes 
+<i>16</i>&nbsp; *  in package simulation to simulate the device.
+<i>17</i>&nbsp; */
+<i>18</i>&nbsp; 
+<i>19</i>&nbsp;public class Log
+<i>20</i>&nbsp;{
+<i>21</i>&nbsp;    /** Constructor
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public Log()
+<b class="fc"><i>24</i>&nbsp;    {</b>
+<b class="fc"><i>25</i>&nbsp;    }</b>
+<i>26</i>&nbsp;    
+<i>27</i>&nbsp;    /** Log the sending of a message to the bank
+<i>28</i>&nbsp;     *
+<i>29</i>&nbsp;     *  @param message the message to be logged
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    public void logSend(Message message)
+<i>32</i>&nbsp;    {
+<b class="nc"><i>33</i>&nbsp;        Simulation.getInstance().printLogLine(&quot;Message:   &quot; + message.toString()); </b>
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;    
+<i>36</i>&nbsp;    /** Log a response received from a message
+<i>37</i>&nbsp;     *
+<i>38</i>&nbsp;     *  @param response the status object returned by the bank in response
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public void logResponse(Status response)
+<i>41</i>&nbsp;    {
+<b class="nc"><i>42</i>&nbsp;        Simulation.getInstance().printLogLine(&quot;Response:  &quot; + response.toString());</b>
+<b class="nc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;    
+<i>45</i>&nbsp;    /** Log the dispensing of cash by the cash dispenser
+<i>46</i>&nbsp;     *
+<i>47</i>&nbsp;     *  @param amount the amount of cash being dispensed
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    public void logCashDispensed(Money amount)
+<i>50</i>&nbsp;    {
+<b class="nc"><i>51</i>&nbsp;        Simulation.getInstance().printLogLine(&quot;Dispensed: &quot; + amount.toString());</b>
+<b class="nc"><i>52</i>&nbsp;    }</b>
+<i>53</i>&nbsp;    
+<i>54</i>&nbsp;    /** Log accepting an envelope.  This method is only called if an envelope
+<i>55</i>&nbsp;     *  is actually received from the customer
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public void logEnvelopeAccepted()
+<i>58</i>&nbsp;    {
+<b class="nc"><i>59</i>&nbsp;        Simulation.getInstance().printLogLine(&quot;Envelope:  received&quot;);</b>
+<b class="nc"><i>60</i>&nbsp;    }</b>
+<i>61</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CashDispenser</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.physical</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CashDispenser (atm.physical)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CashDispenser</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36.4%
+  </span>
+  <span class="absValue">
+    (4/ 11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file CashDispenser.java
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.physical;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import banking.Money;
+<i>11</i>&nbsp;import simulation.Simulation;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/** Manager for the ATM&#39;s cash dispenser.  In a real ATM, this would 
+<i>14</i>&nbsp; *  manage a physical device; in this simulation,  it uses classes 
+<i>15</i>&nbsp; *  in package simulation to simulate the device.
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp; 
+<i>18</i>&nbsp;public class CashDispenser
+<i>19</i>&nbsp;{
+<i>20</i>&nbsp;    /** Constructor
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     *  @param log the log in which to record dispensing cash
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    public CashDispenser(Log log)
+<b class="fc"><i>25</i>&nbsp;    {</b>
+<b class="fc"><i>26</i>&nbsp;        this.log = log;</b>
+<i>27</i>&nbsp;        
+<b class="fc"><i>28</i>&nbsp;        cashOnHand = new Money(0);</b>
+<b class="fc"><i>29</i>&nbsp;    }</b>
+<i>30</i>&nbsp;    
+<i>31</i>&nbsp;    /** Set the amount of cash initially on hand 
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     *  @param initialCash the amount of money in the dispenser
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public void setInitialCash(Money initialCash)
+<i>36</i>&nbsp;    {
+<b class="nc"><i>37</i>&nbsp;        cashOnHand = initialCash;</b>
+<b class="nc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;    
+<i>40</i>&nbsp;    /** See if there is enough cash on hand to satisfy a request
+<i>41</i>&nbsp;     *
+<i>42</i>&nbsp;     *  @param amount the amount of cash the customer wants
+<i>43</i>&nbsp;     *  @return true if at least this amount of money is available
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    public boolean checkCashOnHand(Money amount)
+<i>46</i>&nbsp;    {
+<b class="nc"><i>47</i>&nbsp;        return amount.lessEqual(cashOnHand);</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;    
+<i>50</i>&nbsp;    /** Dispense cash to a customer
+<i>51</i>&nbsp;     *
+<i>52</i>&nbsp;     *  @param amount the amount of cash to dispense
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     *  Precondition: amount is `&lt;=` cash on hand
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    public void dispenseCash(Money amount)
+<i>57</i>&nbsp;    {
+<b class="nc"><i>58</i>&nbsp;        cashOnHand.subtract(amount);</b>
+<i>59</i>&nbsp;        
+<b class="nc"><i>60</i>&nbsp;        Simulation.getInstance().dispenseCash(amount);</b>
+<i>61</i>&nbsp;        
+<i>62</i>&nbsp;        // Log cash having been dispensed
+<i>63</i>&nbsp;        
+<b class="nc"><i>64</i>&nbsp;        log.logCashDispensed(amount);</b>
+<b class="nc"><i>65</i>&nbsp;    }</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /** Log into which cash amounts dispensed will be recorded
+<i>68</i>&nbsp;     */ 
+<i>69</i>&nbsp;    private Log log;
+<i>70</i>&nbsp;    
+<i>71</i>&nbsp;    /** Current cash on hand
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    private Money cashOnHand;
+<i>74</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

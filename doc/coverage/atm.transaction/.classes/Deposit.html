@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Deposit</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.transaction</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Deposit (atm.transaction)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Deposit</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Deposit$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file Deposit.java   
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.transaction;
+<i>9</i>&nbsp;import atm.ATM;
+<i>10</i>&nbsp;import atm.Session;
+<i>11</i>&nbsp;import atm.physical.*;
+<i>12</i>&nbsp;import banking.AccountInformation;
+<i>13</i>&nbsp;import banking.Card;
+<i>14</i>&nbsp;import banking.Message;
+<i>15</i>&nbsp;import banking.Money;
+<i>16</i>&nbsp;import banking.Status;
+<i>17</i>&nbsp;import banking.Receipt;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;/** Representation for a deposit transaction
+<i>20</i>&nbsp; */
+<b class="nc"><i>21</i>&nbsp;public class Deposit extends Transaction</b>
+<i>22</i>&nbsp;{
+<i>23</i>&nbsp;    /** Constructor
+<i>24</i>&nbsp;     *
+<i>25</i>&nbsp;     *  @param atm the ATM used to communicate with customer
+<i>26</i>&nbsp;     *  @param session the session in which the transaction is being performed
+<i>27</i>&nbsp;     *  @param card the customer&#39;s card
+<i>28</i>&nbsp;     *  @param pin the PIN entered by the customer
+<i>29</i>&nbsp;     */
+<i>30</i>&nbsp;    public Deposit(ATM atm, Session session, Card card, int pin)
+<i>31</i>&nbsp;    {
+<b class="nc"><i>32</i>&nbsp;        super(atm, session, card, pin);</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;    
+<i>35</i>&nbsp;    /** Get specifics for the transaction from the customer
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     *  @return message to bank for initiating this transaction
+<i>38</i>&nbsp;     *  @exception CustomerConsole.Cancelled if customer cancelled this transaction
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    protected Message getSpecificsFromCustomer() throws CustomerConsole.Cancelled
+<i>41</i>&nbsp;    {
+<b class="nc"><i>42</i>&nbsp;        to = atm.getCustomerConsole().readMenuChoice(</b>
+<i>43</i>&nbsp;            &quot;Account to deposit to&quot;,
+<i>44</i>&nbsp;            AccountInformation.ACCOUNT_NAMES);
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        amount = atm.getCustomerConsole().readAmount(&quot;Amount to deposit&quot;);</b>
+<i>47</i>&nbsp;        
+<b class="nc"><i>48</i>&nbsp;        return new Message(Message.INITIATE_DEPOSIT,</b>
+<i>49</i>&nbsp;                           card, pin, serialNumber, -1, to, amount);
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;    
+<i>52</i>&nbsp;    /** Complete an approved transaction
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     *  @return receipt to be printed for this transaction
+<i>55</i>&nbsp;     *  @exception CustomerConsole.Cancelled if customer cancelled or 
+<i>56</i>&nbsp;     *             transaction timed out
+<i>57</i>&nbsp;     */
+<i>58</i>&nbsp;    protected Receipt completeTransaction() throws CustomerConsole.Cancelled
+<i>59</i>&nbsp;    {
+<b class="nc"><i>60</i>&nbsp;        atm.getEnvelopeAcceptor().acceptEnvelope();</b>
+<b class="nc"><i>61</i>&nbsp;        Status status = atm.getNetworkToBank().sendMessage(</b>
+<i>62</i>&nbsp;            new Message(Message.COMPLETE_DEPOSIT,
+<i>63</i>&nbsp;                        card, pin, serialNumber, -1, to, amount), 
+<i>64</i>&nbsp;            balances);
+<i>65</i>&nbsp;            
+<b class="nc"><i>66</i>&nbsp;        return new Receipt(this.atm, this.card, this, this.balances) {</b>
+<i>67</i>&nbsp;            {
+<b class="nc"><i>68</i>&nbsp;                detailsPortion = new String[2];</b>
+<b class="nc"><i>69</i>&nbsp;                detailsPortion[0] = &quot;DEPOSIT TO: &quot; + </b>
+<b class="nc"><i>70</i>&nbsp;                                    AccountInformation.ACCOUNT_ABBREVIATIONS[to];</b>
+<b class="nc"><i>71</i>&nbsp;                detailsPortion[1] = &quot;AMOUNT: &quot; + amount.toString();</b>
+<i>72</i>&nbsp;            }
+<i>73</i>&nbsp;        };
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;    
+<i>76</i>&nbsp;    /** Account to deposit to
+<i>77</i>&nbsp;     */ 
+<i>78</i>&nbsp;    private int to;
+<i>79</i>&nbsp;    
+<i>80</i>&nbsp;    /** Amount of money to deposit
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    private Money amount;
+<i>83</i>&nbsp;            
+<i>84</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CardReader</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">atm.physical</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CardReader (atm.physical)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CardReader</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37.5%
+  </span>
+  <span class="absValue">
+    (3/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;/*
+<i>2</i>&nbsp; * ATM Example system - file CardReader.java
+<i>3</i>&nbsp; *
+<i>4</i>&nbsp; * copyright (c) 2001 - Russell C. Bjork
+<i>5</i>&nbsp; *
+<i>6</i>&nbsp; */
+<i>7</i>&nbsp; 
+<i>8</i>&nbsp;package atm.physical;
+<i>9</i>&nbsp;import atm.ATM;
+<i>10</i>&nbsp;import banking.Card;
+<i>11</i>&nbsp;import simulation.Simulation;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/** Manager for the ATM&#39;s card reader.  In a real ATM, this would 
+<i>14</i>&nbsp; *  manage a physical device; in this simulation, it uses classes 
+<i>15</i>&nbsp; *  in package simulation to simulate the device.  
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp; 
+<i>18</i>&nbsp;public class CardReader
+<i>19</i>&nbsp;{
+<i>20</i>&nbsp;    /** Constructor
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     *  @param atm the ATM that owns this card reader
+<i>23</i>&nbsp;     */
+<i>24</i>&nbsp;    public CardReader(ATM atm)
+<b class="fc"><i>25</i>&nbsp;    {</b>
+<b class="fc"><i>26</i>&nbsp;        this.atm = atm;</b>
+<b class="fc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;    
+<i>29</i>&nbsp;    // In a real ATM, code would be needed to sense insertion of a card into the
+<i>30</i>&nbsp;    // slot and notify the ATM - simulated in this case by a button in the GUI
+<i>31</i>&nbsp;    
+<i>32</i>&nbsp;    /** Read a card that has been partially inserted into the reader
+<i>33</i>&nbsp;     *
+<i>34</i>&nbsp;     *  @return Card object representing information on the card if read
+<i>35</i>&nbsp;     *          successfully, null if not read successfully
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    public Card readCard()
+<i>38</i>&nbsp;    {
+<b class="nc"><i>39</i>&nbsp;        return Simulation.getInstance().readCard();</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;    
+<i>42</i>&nbsp;    /** Eject the card that is currently inside the reader.  
+<i>43</i>&nbsp;     */
+<i>44</i>&nbsp;    public void ejectCard()
+<i>45</i>&nbsp;    {
+<b class="nc"><i>46</i>&nbsp;        Simulation.getInstance().ejectCard();</b>
+<b class="nc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;    
+<i>49</i>&nbsp;    /** Retain the card that is currently inside the reader for action by the
+<i>50</i>&nbsp;     *  bank.
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    public void retainCard()
+<i>53</i>&nbsp;    {
+<b class="nc"><i>54</i>&nbsp;        Simulation.getInstance().retainCard();</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;    
+<i>57</i>&nbsp;    /** The ATM to which this card reader belongs
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    private ATM atm;    
+<i>60</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-02-23 11:51</div>
+</div>
+</body>
+</html>
