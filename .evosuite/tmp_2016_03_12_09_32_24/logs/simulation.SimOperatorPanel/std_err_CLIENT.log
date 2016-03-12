@@ -1,0 +1,5 @@
+[MASTER] 10:23:29.629 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.GUI: simulation/ATMPanel
+[MASTER] 10:23:29.635 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.physical.EnvelopeAcceptor: atm/physical/CustomerConsole$Cancelled
+[MASTER] 10:23:29.637 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.physical.CustomerConsole: atm/physical/CustomerConsole$Cancelled
+[MASTER] 10:23:29.641 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Failure
+[MASTER] 10:23:29.745 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Success

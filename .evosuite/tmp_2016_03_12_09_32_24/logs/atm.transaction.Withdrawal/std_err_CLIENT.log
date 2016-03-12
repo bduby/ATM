@@ -1,0 +1,7 @@
+[MASTER] 10:05:32.348 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.GUI: simulation/ATMPanel
+[MASTER] 10:05:32.363 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.transaction.Inquiry: atm/transaction/Inquiry$1
+[MASTER] 10:05:32.367 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.transaction.Deposit: atm/transaction/Deposit$1
+[MASTER] 10:05:32.371 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Failure
+[MASTER] 10:05:32.374 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.transaction.Transfer: atm/transaction/Transfer$1
+[MASTER] 10:05:32.482 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Success
+[MASTER] 10:05:32.571 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$InvalidPIN

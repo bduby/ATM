@@ -1,0 +1,97 @@
+* Starting client
+* Connecting to master process on port 12759
+* Analyzing classpath: 
+  - C:/Users/Ron/IdeaProjects/ATM/out
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\charsets.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\deploy.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\access-bridge-64.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\cldrdata.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\dnsns.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jaccess.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jfxrt.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\localedata.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\nashorn.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunec.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunjce_provider.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunmscapi.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunpkcs11.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\zipfs.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\javaws.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jce.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfr.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfxswt.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jsse.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\management-agent.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\plugin.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\resources.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar
+  - C:\Users\Ron\IdeaProjects\ATM\out
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\hamcrest-core-1.3.jar
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\junit.jar
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\junit-4.12.jar
+* Finished analyzing classpath
+* Generating tests for class atm.physical.CardReader
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 10:15:38.878 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\Ron\IdeaProjects\ATM\.evosuite\evosuite-seeds\atm.physical.CardReader.seed
+* Total number of test goals: 
+  - Line 7
+  - Branch 4
+  - Exception 0
+  - MutationFactory 0
+  - Output 4
+  - Method 4
+  - MethodNoException 4
+  - CBranchFitnessFactory 4
+* Using seed 1457806536372
+* Starting evolution
+* Search finished after 31s and 1966 generations, 335721 statements, best individual has fitness: 10.916666666666668
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 71%
+* Total number of goals: 7
+* Number of covered goals: 5
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 100%
+* Total number of goals: 4
+* Number of covered goals: 4
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100%
+* Total number of goals: 3
+* Number of covered goals: 3
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 100% (no goals)
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 0%
+* Total number of goals: 4
+* Number of covered goals: 0
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 100%
+* Total number of goals: 4
+* Number of covered goals: 4
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 25%
+* Total number of goals: 4
+* Number of covered goals: 1
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 100%
+* Total number of goals: 4
+* Number of covered goals: 4
+* Generated 3 tests with total length 10
+* Resulting test suite's coverage: 65% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 100%
+* Compiling and checking tests
+* Writing JUnit test case 'CardReader_ESTest' to C:\Users\Ron\IdeaProjects\ATM\.evosuite\tmp_2016_03_12_09_32_24\tests
+* Done!
+

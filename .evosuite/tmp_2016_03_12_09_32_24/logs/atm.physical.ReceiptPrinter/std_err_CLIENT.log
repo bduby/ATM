@@ -1,0 +1,3 @@
+[MASTER] 10:12:43.260 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.GUI: simulation/ATMPanel
+[MASTER] 10:12:43.264 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Failure
+[MASTER] 10:12:43.371 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Success

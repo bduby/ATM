@@ -1,0 +1,100 @@
+* Starting client
+* Connecting to master process on port 18741
+* Analyzing classpath: 
+  - C:/Users/Ron/IdeaProjects/ATM/out
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\charsets.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\deploy.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\access-bridge-64.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\cldrdata.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\dnsns.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jaccess.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\jfxrt.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\localedata.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\nashorn.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunec.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunjce_provider.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunmscapi.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\sunpkcs11.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\ext\zipfs.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\javaws.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jce.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfr.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jfxswt.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\jsse.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\management-agent.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\plugin.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\resources.jar
+  - C:\Program Files\Java\jdk1.8.0_73\jre\lib\rt.jar
+  - C:\Users\Ron\IdeaProjects\ATM\out
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\hamcrest-core-1.3.jar
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\junit.jar
+  - C:\Program Files (x86)\JetBrains\IntelliJ IDEA 15.0.3\lib\junit-4.12.jar
+* Finished analyzing classpath
+* Generating tests for class atm.Session
+* Test criteria:
+  - Line Coverage
+  - Branch Coverage
+  - Exception
+  - Mutation testing (weak)
+  - Method-Output Coverage
+  - Top-Level Method Coverage
+  - No-Exception Top-Level Method Coverage
+  - Context Branch Coverage
+* Setting up search algorithm for whole suite generation
+[MASTER] 09:45:54.807 [pool-2-thread-1] WARN  TestSuiteSerialization - Cannot load tests because file does not exist: C:\Users\Ron\IdeaProjects\ATM\.evosuite\evosuite-seeds\atm.Session.seed
+* Total number of test goals: 
+  - Line 41
+  - Branch 20
+  - Exception 0
+  - MutationFactory 53
+  - Output 0
+  - Method 3
+  - MethodNoException 3
+  - CBranchFitnessFactory 20
+* Using seed 1457804749822
+* Starting evolution
+* Search finished after 382s and 13782 generations, 1648090 statements, best individual has fitness: 79.69255952380952
+* Writing sequences to pool
+* Minimizing test suite
+* Going to analyze the coverage criteria
+* Coverage analysis for criterion LINE
+* Coverage of criterion LINE: 24%
+* Total number of goals: 41
+* Number of covered goals: 10
+* Coverage analysis for criterion BRANCH
+* Coverage of criterion BRANCH: 45%
+* Total number of goals: 20
+* Number of covered goals: 9
+* Coverage analysis for criterion EXCEPTION
+* Coverage of criterion EXCEPTION: 100%
+* Total number of goals: 1
+* Number of covered goals: 1
+* Coverage analysis for criterion WEAKMUTATION
+* Coverage of criterion WEAKMUTATION: 30%
+* Total number of goals: 53
+* Number of covered goals: 16
+* Coverage analysis for criterion OUTPUT
+* Coverage of criterion OUTPUT: 100% (no goals)
+* Coverage analysis for criterion METHOD
+* Coverage of criterion METHOD: 100%
+* Total number of goals: 3
+* Number of covered goals: 3
+* Coverage analysis for criterion METHODNOEXCEPTION
+* Coverage of criterion METHODNOEXCEPTION: 67%
+* Total number of goals: 3
+* Number of covered goals: 2
+* Coverage analysis for criterion CBRANCH
+* Coverage of criterion CBRANCH: 45%
+* Total number of goals: 20
+* Number of covered goals: 9
+* Generated 2 tests with total length 4
+* Resulting test suite's coverage: 60% (average coverage for all fitness functions)
+* Generating assertions
+* Resulting test suite's mutation score: 0%
+* Compiling and checking tests
+* Permissions denied during test execution: 
+  - java.lang.RuntimePermission: 
+         writeFileDescriptor: 3
+* Writing JUnit test case 'Session_ESTest' to C:\Users\Ron\IdeaProjects\ATM\.evosuite\tmp_2016_03_12_09_32_24\tests
+* Done!
+

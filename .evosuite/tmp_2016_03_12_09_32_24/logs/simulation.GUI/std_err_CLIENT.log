@@ -1,0 +1,5 @@
+[MASTER] 10:08:50.271 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.physical.EnvelopeAcceptor: atm/physical/CustomerConsole$Cancelled
+[MASTER] 10:08:50.274 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize atm.physical.CustomerConsole: atm/physical/CustomerConsole$Cancelled
+[MASTER] 10:08:50.277 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Failure
+[MASTER] 10:08:50.368 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Success
+[MASTER] 10:08:50.446 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$InvalidPIN

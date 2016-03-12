@@ -1,0 +1,4 @@
+[MASTER] 09:55:37.757 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.GUI: simulation/ATMPanel
+[MASTER] 09:55:37.764 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Failure
+[MASTER] 09:55:37.876 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$Success
+[MASTER] 09:55:37.978 [pool-2-thread-1] ERROR ClassStateSupport - Could not initialize simulation.SimulatedBank: simulation/SimulatedBank$InvalidPIN
