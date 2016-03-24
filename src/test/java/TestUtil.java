@@ -18,9 +18,7 @@ public class TestUtil {
     }
 
     public static void turnAtmOn(Simulation simulation) throws NoSuchFieldException, IllegalAccessException {
-        Field panel = simulation.getClass().getDeclaredField("operatorPanel");
-        panel.setAccessible(true);
-        Panel opPanel = (Panel) panel.get(simulation);
+        Panel opPanel = (Panel) getObjectByField(simulation, "operatorPanel");
         Component[] components = opPanel.getComponents();
         Button button = (Button) ((Panel) components[2]).getComponent(0);
         for (ActionListener actionListener : button.getActionListeners()) {
@@ -30,25 +28,31 @@ public class TestUtil {
 
     public static void setInitialCash(Simulation simulation, int cash) throws NoSuchFieldException, IllegalAccessException, AWTException {
         Object gui = simulation.getGUI();
-        Field bills = gui.getClass().getDeclaredField("billsPanel");
-        bills.setAccessible(true);
-        Object panel = bills.get(gui);
-        Field field = panel.getClass().getDeclaredField("billsNumberField");
-        field.setAccessible(true);
-        TextField billsNumberField = (TextField) field.get(panel);
+        Object panel = getObjectByField(gui, "billsPanel");
+        TextField billsNumberField = (TextField) getObjectByField(panel, "billsNumberField");
         billsNumberField.setText(String.valueOf(cash));
         new Robot().keyPress(KeyEvent.VK_ENTER);
     }
 
     public Label[] getCurrentDisplay(Simulation simulation)
     throws NoSuchFieldException, IllegalAccessException {
+        Object simDisplay = getObjectByField(simulation, "display");
+        return (Label[]) getObjectByField(simDisplay, "displayLine");
+    }
 
-        Field display = simulation.getClass().getDeclaredField("display");
-        display.setAccessible(true);
-        Object simDisplay = display.get(simulation);
-        Field displayLine = simDisplay.getClass().getDeclaredField("displayLine");
-        displayLine.setAccessible(true);
-        return (Label[]) displayLine.get(simDisplay);
+    static Field getDeclaredField(Object object, String name) throws NoSuchFieldException {
+        return object.getClass().getDeclaredField(name);
+    }
+
+    static Field getAccessibleDeclaredField(Object object, String name) throws NoSuchFieldException {
+        Field field = getDeclaredField(object, name);
+        field.setAccessible(true);
+        return field;
+    }
+
+    static Object getObjectByField(Object object, String name) throws NoSuchFieldException, IllegalAccessException {
+        Field field = getAccessibleDeclaredField(object, name);
+        return field.get(object);
     }
 
     public static void main(String[] args)
