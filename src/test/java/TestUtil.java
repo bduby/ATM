@@ -17,7 +17,8 @@ public class TestUtil {
         return new ATMMain();
     }
 
-    public static void turnAtmOn(Simulation simulation) throws NoSuchFieldException, IllegalAccessException {
+    public static void turnAtmOn(Simulation simulation)
+            throws NoSuchFieldException, IllegalAccessException {
         Panel opPanel = (Panel) getObjectByField(simulation, "operatorPanel");
         Component[] components = opPanel.getComponents();
         Button button = (Button) ((Panel) components[2]).getComponent(0);
@@ -26,7 +27,8 @@ public class TestUtil {
         }
     }
 
-    public static void setInitialCash(Simulation simulation, int cash) throws NoSuchFieldException, IllegalAccessException, AWTException {
+    public static void setInitialCash(Simulation simulation, int cash)
+            throws NoSuchFieldException, IllegalAccessException, AWTException {
         Object gui = simulation.getGUI();
         Object panel = getObjectByField(gui, "billsPanel");
         TextField billsNumberField = (TextField) getObjectByField(panel, "billsNumberField");
@@ -37,6 +39,7 @@ public class TestUtil {
     public Label[] getCurrentDisplay(Simulation simulation)
     throws NoSuchFieldException, IllegalAccessException {
         Object simDisplay = getObjectByField(simulation, "display");
+
         return (Label[]) getObjectByField(simDisplay, "displayLine");
     }
 
@@ -61,13 +64,14 @@ public class TestUtil {
             NoSuchFieldException,
             IllegalAccessException, AWTException {
         ATMMain atmMain = new ATMMain();
+        Simulation simulation = atmMain.getTheSimulation();
         Thread.sleep(100);
-        TestUtil.turnAtmOn(atmMain.getTheSimulation());
+        TestUtil.turnAtmOn(simulation);
         Thread.sleep(100);
-        TestUtil.setInitialCash(atmMain.getTheSimulation(), 200);
-        Label[] display = new TestUtil().getCurrentDisplay(atmMain.getTheSimulation());
+        TestUtil.setInitialCash(simulation, 200);
+        Label[] display = new TestUtil().getCurrentDisplay(simulation);
         Thread.sleep(100);
-        for (Label label : new TestUtil().getCurrentDisplay(atmMain.getTheSimulation()))
+        for (Label label : new TestUtil().getCurrentDisplay(simulation))
             System.out.println(label.getText());
     }
 }
