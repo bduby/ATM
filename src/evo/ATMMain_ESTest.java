@@ -20,7 +20,7 @@ public class ATMMain_ESTest extends ATMMain_ESTest_scaffolding {
       String[] stringArray0 = new String[0];
       // Undeclared exception!
       try { 
-        ATMMain.main(stringArray0);
+        //ATMMain.main(stringArray0);
         fail("Expecting exception: HeadlessException");
       
       } catch(HeadlessException e) {
