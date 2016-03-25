@@ -37,8 +37,8 @@ public class TestUtil {
 
         private int keyEvent;
 
-        Transaction(int option) {
-            this.keyEvent = option;
+        Transaction(int keyEvent) {
+            this.keyEvent = keyEvent;
         }
 
         public int getKeyEvent() {
@@ -56,8 +56,8 @@ public class TestUtil {
 
         private int keyEvent;
 
-        Account(int option) {
-            this.keyEvent = option;
+        Account(int keyEvent) {
+            this.keyEvent = keyEvent;
         }
 
         public int getKeyEvent() {
