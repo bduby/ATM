@@ -1,5 +1,3 @@
-import atm.transaction.Withdrawal;
-import banking.Card;
 import simulation.Simulation;
 
 import java.awt.*;
@@ -7,9 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.UnknownHostException;
-import java.util.*;
+import java.util.Arrays;
 
 /**
  * Created by Robert Wilk
@@ -17,10 +14,22 @@ import java.util.*;
  */
 public class TestUtil {
 
-    public static final int SHORT_SLEEP = 1000;
-    public static final int MEDIUM_SLEEP = 2500;
-    public static final int LONG_SLEEP = 5000;
+    /**
+     * Equals 1 second of sleep time
+     */
+    public static final int SHORT_SLEEP     = 1000;
+    /**
+     * Equals 2.5 second of sleep time
+     */
+    public static final int MEDIUM_SLEEP    = 2500;
+    /**
+     * Equals 5 second of sleep time
+     */
+    public static final int LONG_SLEEP      = 5000;
 
+    /**
+     * Maps transaction menu options to key presses.
+     */
     public enum Transaction {
         WITHDRAWAL(KeyEvent.VK_1),
         DEPOSIT(KeyEvent.VK_2),
@@ -38,6 +47,9 @@ public class TestUtil {
         }
     }
 
+    /**
+     * Maps account menu options to key presses.
+     */
     public enum Account {
         CHECKING(KeyEvent.VK_1),
         SAVINGS(KeyEvent.VK_2),
@@ -54,6 +66,9 @@ public class TestUtil {
         }
     }
 
+    /**
+     * Maps withdrawal amount menu options to key presses.
+     */
     public enum WithdrawalAmount {
         TWENTY(1, KeyEvent.VK_1),
         FORTY(2, KeyEvent.VK_2),
@@ -80,6 +95,9 @@ public class TestUtil {
         }
     }
 
+    /**
+     * Maps a yes/no menu option to key presses.
+     */
     public enum Choice {
         YES(KeyEvent.VK_1), NO(KeyEvent.VK_2);
 
@@ -293,13 +311,15 @@ public class TestUtil {
         TestUtil.insertCard(simulation, 1);
         Thread.sleep(SHORT_SLEEP);
         TestUtil.enterPassword(simulation, "42");
-        Thread.sleep(SHORT_SLEEP);
-        TestUtil.chooseTransactionType(Transaction.WITHDRAWAL);
-        Thread.sleep(SHORT_SLEEP);
-        TestUtil.chooseAccountType(Account.CHECKING);
-        Thread.sleep(SHORT_SLEEP);
-        TestUtil.chooseWithdrawalType(WithdrawalAmount.FORTY);
-        Thread.sleep(LONG_SLEEP * 4);
-        TestUtil.chooseYesOrNo(Choice.YES);
+        for (int i = 0; i < 2; i++) {
+            Thread.sleep(SHORT_SLEEP);
+            TestUtil.chooseTransactionType(Transaction.WITHDRAWAL);
+            Thread.sleep(SHORT_SLEEP);
+            TestUtil.chooseAccountType(Account.CHECKING);
+            Thread.sleep(SHORT_SLEEP);
+            TestUtil.chooseWithdrawalType(WithdrawalAmount.FORTY);
+            Thread.sleep(LONG_SLEEP * 4);
+            TestUtil.chooseYesOrNo(Choice.YES);
+        }
     }
 }
