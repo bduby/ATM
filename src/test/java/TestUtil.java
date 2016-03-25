@@ -13,7 +13,6 @@ import java.util.Arrays;
  * on 3/24/2016.
  */
 public class TestUtil {
-
     /**
      * Equals 1 second of sleep time
      */
@@ -279,10 +278,19 @@ public class TestUtil {
         return field.get(object);
     }
 
+    /**
+     * Simulates a press of the enter key.
+     * @throws AWTException
+     */
     static void pressEnter() throws AWTException {
         press(KeyEvent.VK_ENTER);
     }
 
+    /**
+     * Simulates the press a some key.
+     * @param keyEvent The integer value of the key event.
+     * @throws AWTException
+     */
     static void press(int keyEvent) throws AWTException {
         new Robot().keyPress(keyEvent);
     }
