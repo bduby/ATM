@@ -77,7 +77,6 @@ public class AtmTestFixture {
      * @throws InvocationTargetException
      */
 
-
     @Test
     public void test$40WithdrawalFromChecking()
             throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
@@ -99,7 +98,6 @@ public class AtmTestFixture {
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
     }
     @Test
-
     public void testDepositing$40IntoChecking()
             throws IllegalAccessException, AWTException, NoSuchFieldException, InterruptedException,
             NoSuchMethodException, InvocationTargetException {
