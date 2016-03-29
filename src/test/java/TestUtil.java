@@ -17,15 +17,15 @@ public class TestUtil {
     /**
      * Equals 1 second of sleep time
      */
-    public static final int SHORT_SLEEP     = 1000;
+    public static final int SHORT_SLEEP = 500;
     /**
      * Equals 2.5 second of sleep time
      */
-    public static final int MEDIUM_SLEEP    = 2500;
+    public static final int MEDIUM_SLEEP = 2500;
     /**
      * Equals 5 second of sleep time
      */
-    public static final int LONG_SLEEP      = 5000;
+    public static final int LONG_SLEEP = 5000;
 
     /**
      * Maps transaction menu options to key presses.
