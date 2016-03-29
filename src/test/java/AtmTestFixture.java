@@ -76,30 +76,6 @@ public class AtmTestFixture {
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
-<<<<<<< Updated upstream
-    @Test
-    public void test$40WithdrawalFromChecking()
-            throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-        TestUtil.turnAtmOn(simulation);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.setInitialCash(simulation, 200);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.insertCard(simulation, 1);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.enterPassword(simulation, "42");
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
-        assertEquals(null, null);
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-    }
-
-=======
->>>>>>> Stashed changes
     @Test
     public void testDepositing$40IntoChecking()
             throws IllegalAccessException, AWTException, NoSuchFieldException, InterruptedException,
