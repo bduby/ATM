@@ -1,3 +1,4 @@
+import atm.ATM;
 import simulation.Simulation;
 
 import java.awt.*;
@@ -16,15 +17,15 @@ public class TestUtil {
     /**
      * Equals 1 second of sleep time
      */
-    public static final int SHORT_SLEEP     = 1000;
+    public static final int SHORT_SLEEP = 500;
     /**
      * Equals 2.5 second of sleep time
      */
-    public static final int MEDIUM_SLEEP    = 2500;
+    public static final int MEDIUM_SLEEP = 2500;
     /**
      * Equals 5 second of sleep time
      */
-    public static final int LONG_SLEEP      = 5000;
+    public static final int LONG_SLEEP = 5000;
 
     /**
      * Maps transaction menu options to key presses.
@@ -112,7 +113,15 @@ public class TestUtil {
     }
 
     /**
+     * The possible states for the ATM.
+     */
+    public enum State {
+        OFF_STATE, IDLE_STATE, SERVING_CUSTOMER_STATE
+    }
+
+    /**
      * Starts a new instance of the ATM simulator.
+     *
      * @return The ATM simulator instance.
      * @throws UnknownHostException
      */
@@ -123,6 +132,7 @@ public class TestUtil {
     /**
      * Turns on the atm associated with the simulation by simulating an event
      * on the button that turns the atm on.
+     *
      * @param simulation The current simulation.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
@@ -139,16 +149,16 @@ public class TestUtil {
 
     /**
      * Sets the initial cash-on-hand amount for the atm.
+     *
      * @param simulation The current simulation.
-     * @param cash The number of twenties to begin with.
+     * @param cash       The number of twenties to begin with.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
      */
     public static void setInitialCash(Simulation simulation, int cash)
             throws NoSuchFieldException, IllegalAccessException, AWTException {
-        Object gui = simulation.getGUI();
-        Object panel = getObjectByField(gui, "billsPanel");
+        Object panel = getObjectByField(simulation.getGUI(), "billsPanel");
         TextField billsNumberField = (TextField) getObjectByField(panel, "billsNumberField");
         billsNumberField.setText(String.valueOf(cash));
         pressEnter();
@@ -156,19 +166,21 @@ public class TestUtil {
 
     /**
      * Gets the text currently displayed in the atm GUI.
+     *
      * @param simulation The current simulation.
      * @return An array of labels containing the display text.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
     public static Label[] getCurrentDisplay(Simulation simulation)
-    throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
         Object simDisplay = getObjectByField(simulation, "display");
         return (Label[]) getObjectByField(simDisplay, "displayLine");
     }
 
     /**
      * Inserts a card with the given card number.
+     *
      * @param simulation The current simulation.
      * @param cardNumber The user's card number.
      * @throws NoSuchFieldException
@@ -189,8 +201,9 @@ public class TestUtil {
 
     /**
      * Enters the password after a card was inserted.
+     *
      * @param simulation The current simulation
-     * @param password The password for the inserted card.
+     * @param password   The password for the inserted card.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
@@ -204,6 +217,7 @@ public class TestUtil {
 
     /**
      * Chooses a transaction type if prompted by simulating the appropriate key press.
+     *
      * @param transaction The transaction type.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
@@ -216,6 +230,7 @@ public class TestUtil {
 
     /**
      * Chooses an account type if prompted by simulating the appropriate key press.
+     *
      * @param account The account type.
      * @throws AWTException
      */
@@ -225,6 +240,7 @@ public class TestUtil {
 
     /**
      * Chooses a withdrawal amount if prompted by simulating the appropriate key press.
+     *
      * @param withdrawalAmount The amount to withdrawal.
      * @throws AWTException
      */
@@ -234,6 +250,7 @@ public class TestUtil {
 
     /**
      * Makes a yes/no choice if prompted by simulating the appropriate key press.
+     *
      * @param choice The choice made.
      * @throws AWTException
      */
@@ -241,10 +258,15 @@ public class TestUtil {
         press(choice.getKeyEvent());
     }
 
+    public static int getState(ATM atm) throws NoSuchFieldException, IllegalAccessException {
+        return (Integer) getObjectByField(atm, "state");
+    }
+
     /**
      * Gets a declared field from an object using reflection.
+     *
      * @param object The object with the field.
-     * @param name The declared name of the field.
+     * @param name   The declared name of the field.
      * @return The field.
      * @throws NoSuchFieldException
      */
@@ -254,8 +276,9 @@ public class TestUtil {
 
     /**
      * Gets a declared field from an object using reflection and sets it as accessible.
+     *
      * @param object The object with the field.
-     * @param name The declared name of the field.
+     * @param name   The declared name of the field.
      * @return The accessible field.
      * @throws NoSuchFieldException
      */
@@ -267,8 +290,9 @@ public class TestUtil {
 
     /**
      * Gets the Object representation of a declared field using reflection.
+     *
      * @param object The object with the field.
-     * @param name The declared name of the field.
+     * @param name   The declared name of the field.
      * @return The object associated to the field.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
@@ -280,6 +304,7 @@ public class TestUtil {
 
     /**
      * Simulates a press of the enter key.
+     *
      * @throws AWTException
      */
     static void pressEnter() throws AWTException {
@@ -288,6 +313,7 @@ public class TestUtil {
 
     /**
      * Simulates the press a some key.
+     *
      * @param keyEvent The integer value of the key event.
      * @throws AWTException
      */
@@ -297,6 +323,7 @@ public class TestUtil {
 
     /**
      * A test of the TestUtil functionality.
+     *
      * @param args Not used.
      * @throws UnknownHostException
      * @throws InterruptedException
@@ -311,7 +338,6 @@ public class TestUtil {
             IllegalAccessException, AWTException, NoSuchMethodException, InvocationTargetException {
         ATMMain atmMain = new ATMMain();
         Simulation simulation = atmMain.getTheSimulation();
-        Thread.sleep(SHORT_SLEEP);
         TestUtil.turnAtmOn(simulation);
         Thread.sleep(SHORT_SLEEP);
         TestUtil.setInitialCash(simulation, 200);
@@ -319,15 +345,13 @@ public class TestUtil {
         TestUtil.insertCard(simulation, 1);
         Thread.sleep(SHORT_SLEEP);
         TestUtil.enterPassword(simulation, "42");
-        for (int i = 0; i < 2; i++) {
-            Thread.sleep(SHORT_SLEEP);
-            TestUtil.chooseTransactionType(Transaction.WITHDRAWAL);
-            Thread.sleep(SHORT_SLEEP);
-            TestUtil.chooseAccountType(Account.CHECKING);
-            Thread.sleep(SHORT_SLEEP);
-            TestUtil.chooseWithdrawalType(WithdrawalAmount.FORTY);
-            Thread.sleep(LONG_SLEEP * 4);
-            TestUtil.chooseYesOrNo(Choice.YES);
-        }
+        Thread.sleep(SHORT_SLEEP);
+        TestUtil.chooseTransactionType(Transaction.WITHDRAWAL);
+        Thread.sleep(SHORT_SLEEP);
+        TestUtil.chooseAccountType(Account.CHECKING);
+        Thread.sleep(SHORT_SLEEP);
+        TestUtil.chooseWithdrawalType(WithdrawalAmount.FORTY);
+        Thread.sleep((int) (LONG_SLEEP * 3.5));
+        TestUtil.chooseYesOrNo(Choice.YES);
     }
 }
