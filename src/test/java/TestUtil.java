@@ -258,6 +258,60 @@ public class TestUtil {
         press(choice.getKeyEvent());
     }
 
+    /**
+     * Enters the deposit amount if prompted by simulating the user input.
+     *
+     * @param simulation The current simulation
+     * @param amount The deposit amount.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws AWTException
+     */
+    public static void enterDepositAmount(Simulation simulation, int amount)
+            throws NoSuchFieldException, IllegalAccessException, AWTException {
+        Object keyboard = getObjectByField(simulation, "keyboard");
+        ((StringBuffer) getObjectByField(keyboard, "currentInput")).append(String.valueOf(amount));
+        pressEnter();
+    }
+
+    /**
+     * Inserts the deposit envelope if prompted by simulating the envelope insertion.
+     *
+     * @param simulation The current simulation.
+     * @throws InterruptedException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    public static void insertEnvelope(Simulation simulation)
+            throws InterruptedException, NoSuchFieldException, IllegalAccessException {
+        Button button = (Button) getObjectByField(simulation, "envelopeAcceptor");
+        for (ActionListener actionListener : button.getActionListeners())
+            actionListener.actionPerformed(null);
+    }
+
+    /**
+     * Checks if a transaction receipt is available by checking the "Take receipt" button's
+     * visability.
+     *
+     * @param simulation The current simulation.
+     * @return The "Take receipt" button if visible, false otherwise.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    public static Button checkForReceipt(Simulation simulation) throws NoSuchFieldException, IllegalAccessException {
+        Object printer = TestUtil.getObjectByField(simulation, "receiptPrinter");
+        Button take = (Button) TestUtil.getObjectByField(printer, "take");
+        return take.isVisible() ? take : null;
+    }
+
+    /**
+     * Gets the current state of the given ATM.
+     *
+     * @param atm The current ATM.
+     * @return The integer value for the current state of the current ATM.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     public static int getState(ATM atm) throws NoSuchFieldException, IllegalAccessException {
         return (Integer) getObjectByField(atm, "state");
     }
@@ -320,8 +374,8 @@ public class TestUtil {
     static void press(int keyEvent) throws AWTException {
         new Robot().keyPress(keyEvent);
     }
-
-    /**
+/*
+    *//**
      * A test of the TestUtil functionality.
      *
      * @param args Not used.
@@ -330,7 +384,7 @@ public class TestUtil {
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
-     */
+     *//*
     public static void main(String[] args)
             throws UnknownHostException,
             InterruptedException,
@@ -353,5 +407,5 @@ public class TestUtil {
         TestUtil.chooseWithdrawalType(WithdrawalAmount.FORTY);
         Thread.sleep((int) (LONG_SLEEP * 3.5));
         TestUtil.chooseYesOrNo(Choice.YES);
-    }
+    }*/
 }
