@@ -99,15 +99,14 @@ public class AtmTestFixture {
     @Test
     public void test$40WithdrawalFromChecking()
             throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
+        //TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+       // Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
-        //assertEquals(null, null);
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null)
             fail("WITHDRAWAL FAILED: No receipt printed for withdrawal\n");
