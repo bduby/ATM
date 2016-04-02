@@ -1,4 +1,6 @@
 import atm.ATM;
+import atm.physical.CustomerConsole;
+import atm.transaction.Withdrawal;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -97,10 +99,7 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
     @Test
-    public void test$40WithdrawalFromChecking()
-            throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-        //TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-       // Thread.sleep(TestUtil.SHORT_SLEEP);
+    public void test$40WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
@@ -114,6 +113,5 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-
     }
 }
