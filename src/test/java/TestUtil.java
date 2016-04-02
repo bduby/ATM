@@ -34,7 +34,7 @@ public class TestUtil {
         WITHDRAWAL(KeyEvent.VK_1),
         DEPOSIT(KeyEvent.VK_2),
         TRANSFER(KeyEvent.VK_3),
-        BAL_INQUIRY(KeyEvent.VK_4);
+        BALANCE_INQUIRY(KeyEvent.VK_4);
 
         private int keyEvent;
 
@@ -195,7 +195,7 @@ public class TestUtil {
         Object panel = getObjectByField(simulation.getGUI(), "cardPanel");
         TextField cardNumberField = (TextField) getObjectByField(panel, "cardNumberField");
         Thread.sleep(MEDIUM_SLEEP);
-        cardNumberField.setText(String.valueOf(1));
+        cardNumberField.setText(String.valueOf(cardNumber));
         pressEnter();
     }
 
@@ -374,8 +374,8 @@ public class TestUtil {
     static void press(int keyEvent) throws AWTException {
         new Robot().keyPress(keyEvent);
     }
-/*
-    *//**
+
+    /**
      * A test of the TestUtil functionality.
      *
      * @param args Not used.
@@ -384,7 +384,8 @@ public class TestUtil {
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
-     *//*
+     */
+/*
     public static void main(String[] args)
             throws UnknownHostException,
             InterruptedException,
