@@ -99,7 +99,15 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 
-    // TODO: Brian this needs javadocs!
+    /**
+     * Tests withdrawal $40 from the checking account for the fixture's account.
+     * Pass/Fail is determined by the visibility of the "Take receipt" button
+     * which only appears if the withdrawal was a success.
+     * @throws IllegalAccessException
+     * @throws AWTException
+     * @throws NoSuchFieldException
+     * @throws InterruptedException
+     */
     @Test
     public void test$40WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
@@ -115,8 +123,7 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-<<<<<<< HEAD
-=======
+
     }
 
     /**
@@ -142,6 +149,5 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
->>>>>>> a846b0c9333926fe30f7bf556b08b486b7e2cf88
     }
 }
