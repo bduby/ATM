@@ -133,7 +133,6 @@ public class AtmTestFixture {
         TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null)
