@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.*;
 
 /**
  * Created by Robert Wilk
@@ -124,6 +124,35 @@ public class AtmTestFixture {
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
 
+    }
+    /**
+     * Tests withdrawal $200 from the checking account for the fixture's account.
+     * Pass/Fail assertTrue whether the message is as expected
+     * @throws IllegalAccessException
+     * @throws AWTException
+     * @throws NoSuchFieldException
+     * @throws InterruptedException
+     */
+    @Test
+    public void test$200WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+       // Label[] label = null;
+        TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
+        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
+        //Arrays.asList(TestUtil.getCurrentDisplay(simulation)).forEach(label -> System.out.println(label.getText()));
+
+        //assertSame((TestUtil.getCurrentDisplay(simulation)[0].getText()), "Insufficient available balance");
+        Button take = TestUtil.checkForReceipt(simulation);
+        if (take == null) {
+            assertTrue("Insufficient available balance".equals(TestUtil.getCurrentDisplay(simulation)[0].getText()));
+        }else{
+            assertTrue("Would you like to do another transaction?".equals(TestUtil.getCurrentDisplay(simulation)[0].getText()));
+        }
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 
     /**
