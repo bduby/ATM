@@ -50,7 +50,7 @@ public class AtmTestFixture {
         atm = atmMain.getTheATM();
         TestUtil.turnAtmOn(simulation);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.setInitialCash(simulation, 200);
+        TestUtil.setInitialCash(simulation, 5);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.insertCard(simulation, 1);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -134,7 +134,7 @@ public class AtmTestFixture {
      * @throws InterruptedException
      */
     @Test
-    public void test$200WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+    public void testWitdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
        // Label[] label = null;
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -142,17 +142,15 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
-        //Arrays.asList(TestUtil.getCurrentDisplay(simulation)).forEach(label -> System.out.println(label.getText()));
-
-        //assertSame((TestUtil.getCurrentDisplay(simulation)[0].getText()), "Insufficient available balance");
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
-            assertTrue("Insufficient available balance".equals(TestUtil.getCurrentDisplay(simulation)[0].getText()));
+            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
         }else{
-            assertTrue("Would you like to do another transaction?".equals(TestUtil.getCurrentDisplay(simulation)[0].getText()));
+            fail("There is enough money");
         }
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
+
+
     }
 
     /**
