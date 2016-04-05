@@ -101,7 +101,7 @@ public class TestUtil {
     public enum Cancel {
         CANCEL(KeyEvent.VK_CANCEL);
         private int keyEvent;
-        Cancel(int KeyEvent) {this.keyEvent = keyEvent;}
+        Cancel(int keyEvent) {this.keyEvent = keyEvent;}
         public int getKeyEvent() {
             return keyEvent;
         }
@@ -259,9 +259,11 @@ public class TestUtil {
     public static void chooseWithdrawalType(TestUtil.WithdrawalAmount withdrawalAmount) throws AWTException {
         press(withdrawalAmount.getKeyEvent());
     }
+
     public static void cancelTrans(Cancel cancel) throws AWTException{
         press(cancel.getKeyEvent());
     }
+
     /**
      * Makes a yes/no choice if prompted by simulating the appropriate key press.
      *

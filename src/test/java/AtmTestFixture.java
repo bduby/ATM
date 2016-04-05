@@ -68,6 +68,7 @@ public class AtmTestFixture {
      * Tests depositing $40 into the checking account for the fixture's account.
      * Pass/Fail is determined by the visibility of the "Take receipt" button
      * which only appears if the deposit was a success.
+     *
      * @throws IllegalAccessException
      * @throws AWTException
      * @throws NoSuchFieldException
@@ -95,6 +96,7 @@ public class AtmTestFixture {
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
+
     /**
      * Tests withdrawal $40 from the checking account for the fixture's account.
      * Pass/Fail is determined by the visibility of the "Take receipt" button
@@ -130,23 +132,23 @@ public class AtmTestFixture {
      * @throws InterruptedException
      */
     @Test
-    public void testWitdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+    public void testWithdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
        // Label[] label = null;
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
+        Thread.sleep(TestUtil.SHORT_SLEEP);
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
             TestUtil.cancelTrans(TestUtil.Cancel.CANCEL);
             Thread.sleep(TestUtil.SHORT_SLEEP);
+            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
         }else{
-            fail("There is enough money");
+            fail("WITHDRAWAL: The ATM did not stop a withdrawal that was greater than its cash on hand!");
         }
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-
     }
 
     /**
@@ -172,5 +174,24 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    /**
+     * Performs a withdrawal of the given amount from the given account.
+     * @param account The given account.
+     * @param amount The given amount.
+     * @throws InterruptedException
+     * @throws AWTException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    private static void withdrawalAmountFrom(TestUtil.Account account, TestUtil.WithdrawalAmount amount)
+            throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException {
+        TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseAccountType(account);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseWithdrawalType(amount);
+        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
     }
 }
