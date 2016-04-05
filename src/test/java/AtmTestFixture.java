@@ -1,6 +1,4 @@
 import atm.ATM;
-import atm.physical.CustomerConsole;
-import atm.transaction.Withdrawal;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 
 import static junit.framework.Assert.*;
 
@@ -98,7 +95,6 @@ public class AtmTestFixture {
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
-
     /**
      * Tests withdrawal $40 from the checking account for the fixture's account.
      * Pass/Fail is determined by the visibility of the "Take receipt" button
@@ -144,12 +140,12 @@ public class AtmTestFixture {
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
-            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            TestUtil.cancelTrans(TestUtil.Cancel.CANCEL);
             Thread.sleep(TestUtil.SHORT_SLEEP);
         }else{
             fail("There is enough money");
         }
-
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
 
     }
 

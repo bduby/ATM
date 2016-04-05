@@ -76,6 +76,7 @@ public class TestUtil {
         ONE_HUNDRED(5, KeyEvent.VK_4),
         TWO_HUNDRED(10, KeyEvent.VK_5);
 
+
         private static final int base = 20;
 
         private int amount;
@@ -90,6 +91,17 @@ public class TestUtil {
             return amount;
         }
 
+        public int getKeyEvent() {
+            return keyEvent;
+        }
+    }
+    /**
+     * Maps a Cancel menu option to key presses.
+     */
+    public enum Cancel {
+        CANCEL(KeyEvent.VK_CANCEL);
+        private int keyEvent;
+        Cancel(int KeyEvent) {this.keyEvent = keyEvent;}
         public int getKeyEvent() {
             return keyEvent;
         }
@@ -247,7 +259,9 @@ public class TestUtil {
     public static void chooseWithdrawalType(TestUtil.WithdrawalAmount withdrawalAmount) throws AWTException {
         press(withdrawalAmount.getKeyEvent());
     }
-
+    public static void cancelTrans(Cancel cancel) throws AWTException{
+        press(cancel.getKeyEvent());
+    }
     /**
      * Makes a yes/no choice if prompted by simulating the appropriate key press.
      *
