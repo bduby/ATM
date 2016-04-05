@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
@@ -96,12 +95,18 @@ public class TestUtil {
         }
     }
     /**
-     * Maps a Cancel menu option to key presses.
+     * Maps a Button menu option to key presses.
      */
-    public enum Cancel {
+    public enum Button {
+
         CANCEL(KeyEvent.VK_CANCEL);
+
         private int keyEvent;
-        Cancel(int keyEvent) {this.keyEvent = keyEvent;}
+
+        Button(int keyEvent) {
+            this.keyEvent = keyEvent;
+        }
+
         public int getKeyEvent() {
             return keyEvent;
         }
@@ -153,7 +158,7 @@ public class TestUtil {
             throws NoSuchFieldException, IllegalAccessException {
         Panel opPanel = (Panel) getObjectByField(simulation, "operatorPanel");
         Component[] components = opPanel.getComponents();
-        Button button = (Button) ((Panel) components[2]).getComponent(0);
+        java.awt.Button button = (java.awt.Button) ((Panel) components[2]).getComponent(0);
         for (ActionListener actionListener : button.getActionListeners()) {
             actionListener.actionPerformed(null);
         }
@@ -202,7 +207,7 @@ public class TestUtil {
      */
     public static void insertCard(Simulation simulation, int cardNumber)
             throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-        Button simReader = (Button) getObjectByField(simulation, "cardReader");
+        java.awt.Button simReader = (java.awt.Button) getObjectByField(simulation, "cardReader");
         Arrays.asList(simReader.getActionListeners()).forEach(l -> l.actionPerformed(null));
         Object panel = getObjectByField(simulation.getGUI(), "cardPanel");
         TextField cardNumberField = (TextField) getObjectByField(panel, "cardNumberField");
@@ -260,8 +265,8 @@ public class TestUtil {
         press(withdrawalAmount.getKeyEvent());
     }
 
-    public static void cancelTrans(Cancel cancel) throws AWTException{
-        press(cancel.getKeyEvent());
+    public static void cancelTrans(Button button) throws AWTException{
+        press(button.getKeyEvent());
     }
 
     /**
@@ -300,7 +305,7 @@ public class TestUtil {
      */
     public static void insertEnvelope(Simulation simulation)
             throws InterruptedException, NoSuchFieldException, IllegalAccessException {
-        Button button = (Button) getObjectByField(simulation, "envelopeAcceptor");
+        java.awt.Button button = (java.awt.Button) getObjectByField(simulation, "envelopeAcceptor");
         for (ActionListener actionListener : button.getActionListeners())
             actionListener.actionPerformed(null);
     }
@@ -314,9 +319,9 @@ public class TestUtil {
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
-    public static Button checkForReceipt(Simulation simulation) throws NoSuchFieldException, IllegalAccessException {
+    public static java.awt.Button checkForReceipt(Simulation simulation) throws NoSuchFieldException, IllegalAccessException {
         Object printer = TestUtil.getObjectByField(simulation, "receiptPrinter");
-        Button take = (Button) TestUtil.getObjectByField(printer, "take");
+        java.awt.Button take = (java.awt.Button) TestUtil.getObjectByField(printer, "take");
         return take.isVisible() ? take : null;
     }
 

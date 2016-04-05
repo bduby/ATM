@@ -142,7 +142,7 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
-            TestUtil.cancelTrans(TestUtil.Cancel.CANCEL);
+            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
             Thread.sleep(TestUtil.SHORT_SLEEP);
             TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
             Thread.sleep(TestUtil.SHORT_SLEEP);
