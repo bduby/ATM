@@ -214,7 +214,15 @@ public class AtmTestFixture {
         TestUtil.pressEnter();//enter the stuff
         Thread.sleep(TestUtil.LONG_SLEEP);//wait for a bit to process.
         //Thing prompts for another transaction.
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//do another transaction after this one.
+        Button take = TestUtil.checkForReceipt(simulation);
+        if (take == null) {
+            fail("TRANSFER:  No receipt printed for transfer!");
+        }else{
+            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+        }
 
     }
 
