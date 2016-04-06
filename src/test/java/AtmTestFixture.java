@@ -219,17 +219,9 @@ public class AtmTestFixture {
         TestUtil.enterDepositAmount( Simulation.getInstance(), 2000);//Select an amount to transfer to, and press enter.
         //effectively transfer 20 dollars.
         TestUtil.pressEnter();//enter the stuff
-        Thread.sleep(TestUtil.LONG_SLEEP);//wait for a bit to process.
-        //Thing prompts for another transaction.
-        Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null) {
-            fail("TRANSFER:  No receipt printed for transfer!");
-        }else{
-            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-        }
+        Thread.sleep(TestUtil.LONG_SLEEP*3);//wait for a loooong time to process.
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//Thing prompts for another transaction
+        Thread.sleep(TestUtil.SHORT_SLEEP);
 
     }
 
