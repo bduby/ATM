@@ -194,4 +194,29 @@ public class AtmTestFixture {
         TestUtil.chooseWithdrawalType(amount);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
     }
+
+    /*
+        Austin Purcell made this.  Like, super late.
+        Performs a transfer from one account to another.
+     */
+    @Test
+    public void testTransferFunds()
+            throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException
+    {
+        TestUtil.chooseTransactionType(TestUtil.Transaction.TRANSFER);//we will transfer, so use this transaction.
+        Thread.sleep(TestUtil.SHORT_SLEEP);//take a bit of a break.  Probably for animations.
+        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);//choose the account type to transfer from.
+        Thread.sleep(TestUtil.SHORT_SLEEP);//more animations.
+        TestUtil.chooseAccountType(TestUtil.Account.SAVINGS);//choose the account type to transfer to.
+        Thread.sleep(TestUtil.SHORT_SLEEP);//more animations
+        TestUtil.enterDepositAmount( Simulation.getInstance(), 2000);//Select an amount to transfer to, and press enter.
+        //effectively transfer 20 dollars.
+        TestUtil.pressEnter();//enter the stuff
+        Thread.sleep(TestUtil.LONG_SLEEP);//wait for a bit to process.
+        //Thing prompts for another transaction.
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//do another transaction after this one.
+
+    }
+
+
 }
