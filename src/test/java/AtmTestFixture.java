@@ -168,8 +168,15 @@ public class AtmTestFixture {
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
         Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null)
+        if (take == null) {
+            // If the test fails, we need to end at the Select
+            // Transaction screen for the next test...
+            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
             fail("WITHDRAWAL FAILED: No receipt printed for withdrawal\n");
+        }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
