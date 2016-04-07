@@ -89,8 +89,10 @@ public class AtmTestFixture {
         TestUtil.insertEnvelope(simulation);
         Thread.sleep(TestUtil.LONG_SLEEP * 3);
         Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null)
+        if (take == null) {
+            cancelForNextTest();
             fail("DEPOSIT FAILED: No receipt printed for deposit\n");
+        }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
@@ -115,13 +117,14 @@ public class AtmTestFixture {
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
         Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null)
+        if (take == null) {
+            cancelForNextTest();
             fail("WITHDRAWAL FAILED: No receipt printed for withdrawal\n");
+        }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-
     }
 
     /**
@@ -134,7 +137,6 @@ public class AtmTestFixture {
      */
     @Test
     public void testWithdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-       // Label[] label = null;
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
@@ -142,13 +144,9 @@ public class AtmTestFixture {
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null) {
-            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-        }else{
-            fail("WITHDRAWAL: The ATM did not stop a withdrawal that was greater than its cash on hand!");
+        cancelForNextTest();
+        if (take != null) {
+            fail("WITHDRAWAL FAILED: The ATM did not stop a withdrawal that was greater than its cash on hand!");
         }
     }
 
@@ -170,13 +168,8 @@ public class AtmTestFixture {
         Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
-            // If the test fails, we need to end at the Select
-            // Transaction screen for the next test...
-            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            fail("WITHDRAWAL FAILED: No receipt printed for withdrawal\n");
+            cancelForNextTest();
+            fail("BALANCE INQUIRY FAILED: No receipt printed for balance inquiry\n");
         }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
@@ -209,15 +202,27 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.LONG_SLEEP*3);//wait for a loooong time to process.
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null){
-            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-            fail("TRANSFER: No receipt printed for Transfer!");
+            cancelForNextTest();
+            fail("TRANSFER FAILED: No receipt printed for Transfer!");
         }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//Thing prompts for another transaction
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    /**
+     * Support method for getting the simulation to the
+     * Select Transaction screen, to prep for the next test
+     * before failing.
+     * @throws InterruptedException
+     * @throws AWTException
+     */
+    private void cancelForNextTest()
+            throws InterruptedException, AWTException{
+        TestUtil.cancelTrans(TestUtil.Button.CANCEL);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 }
