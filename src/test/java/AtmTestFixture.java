@@ -123,9 +123,10 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
 
     }
+
     /**
      * Tests withdrawal $200 from the checking account for the fixture's account.
-     * Pass/Fail assertTrue whether the message is as expected
+     * Pass/Fail determined by visibility of "Take receipt" button
      * @throws IllegalAccessException
      * @throws AWTException
      * @throws NoSuchFieldException
@@ -184,27 +185,13 @@ public class AtmTestFixture {
     }
 
     /**
-     * Performs a withdrawal of the given amount from the given account.
-     * @param account The given account.
-     * @param amount The given amount.
+     * Austin Purcell made this.  Like, super late.
+     * Performs a transfer from one account to another.
+     * Pass/Fail determined by visibility of "Take receipt" button
      * @throws InterruptedException
      * @throws AWTException
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
-     */
-    private static void withdrawalAmountFrom(TestUtil.Account account, TestUtil.WithdrawalAmount amount)
-            throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException {
-        TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseAccountType(account);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseWithdrawalType(amount);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
-    }
-
-    /*
-        Austin Purcell made this.  Like, super late.
-        Performs a transfer from one account to another.
      */
     @Test
     public void testTransferFunds()
@@ -220,10 +207,17 @@ public class AtmTestFixture {
         //effectively transfer 20 dollars.
         TestUtil.pressEnter();//enter the stuff
         Thread.sleep(TestUtil.LONG_SLEEP*3);//wait for a loooong time to process.
+        Button take = TestUtil.checkForReceipt(simulation);
+        if (take == null){
+            TestUtil.cancelTrans(TestUtil.Button.CANCEL);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+            TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+            fail("TRANSFER: No receipt printed for Transfer!");
+        }
+        for (ActionListener actionListener : take.getActionListeners())
+            actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//Thing prompts for another transaction
         Thread.sleep(TestUtil.SHORT_SLEEP);
-
     }
-
-
 }
