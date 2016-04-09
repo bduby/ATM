@@ -265,8 +265,6 @@ public class AtmTestFixture {
      */
     private void turnATMOnAndAddTwenties(int initTwenties)
         throws InterruptedException, AWTException, IllegalAccessException, NoSuchFieldException{
-        if(initTwenties < 1)
-            fail("Support method fail: Can't initialize ATM with less than 1 twenty");
         TestUtil.turnAtmOn(simulation);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.setInitialCash(simulation, initTwenties);
