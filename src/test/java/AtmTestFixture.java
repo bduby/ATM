@@ -156,21 +156,52 @@ public class AtmTestFixture {
     @Test
     public void testBalanceInquiryChecking()
             throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException {
-        turnATMOnAndAddTwenties(10);
-        insertCard(1, "42");
-        TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep(TestUtil.LONG_SLEEP * 3);
-        Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null) {
-            cancelForNextTest();
-            fail("BALANCE INQUIRY FAILED: No receipt printed for balance inquiry\n");
-        }
-        for (ActionListener actionListener : take.getActionListeners())
-            actionListener.actionPerformed(null);
+        Label theDisplay[] = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Not currently available") == 0)
+            turnATMOnAndAddTwenties(10);
+        else
+            fail("BALANCE INQUIRY FAILED: could not turn ATM on, it wasn't off.\n");
+
+        theDisplay = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Please insert your card") == 0)
+            insertCard(1, "42");
+        else
+            fail("BALANCE INQUIRY FAILED: ATM was not Insert Card prompt.\n");
+
+        theDisplay = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Please choose transaction type") == 0){
+            TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
+            Thread.sleep(TestUtil.SHORT_SLEEP);
+        } else
+            fail("BALANCE INQUIRY FAILED: ATM was not Transaction Select prompt.\n");
+
+        theDisplay = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Account to inquire from") == 0){
+            TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
+            Thread.sleep(TestUtil.LONG_SLEEP * 3);
+        } else
+            fail("BALANCE INQUIRY FAILED: ATM was not at Account Select prompt.\n");
+
+
+        theDisplay = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Would you like to do another transaction?") == 0) {
+            Button take = TestUtil.checkForReceipt(simulation);
+            if (take == null) {
+                cancelForNextTest();
+                fail("BALANCE INQUIRY FAILED: No receipt printed for balance inquiry.\n");
+            }
+            for (ActionListener actionListener : take.getActionListeners())
+                actionListener.actionPerformed(null);
+        } else
+            fail("BALANCE INQUIRY FAILED: ATM Did not prompt for another transaction after inquiry.\n");
         turnATMOff();
-        Thread.sleep((int) (TestUtil.MEDIUM_SLEEP));
+        Thread.sleep(TestUtil.MEDIUM_SLEEP);
+
+        theDisplay = TestUtil.getCurrentDisplay(simulation);
+        if (theDisplay[0].getText().compareTo("Not currently available") != 0)
+            fail("BALANCE INQUIRY FAILED: ATM did not shut off properly at the end.\n");
+
+        Thread.sleep(TestUtil.MEDIUM_SLEEP);
     }
 
     /**
