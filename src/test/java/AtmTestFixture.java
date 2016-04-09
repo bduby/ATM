@@ -45,14 +45,6 @@ public class AtmTestFixture {
         atmMain = TestUtil.startAtmSimulator();
         simulation = atmMain.getTheSimulation();
         atm = atmMain.getTheATM();
-        TestUtil.turnAtmOn(simulation);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.setInitialCash(simulation, 5);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.insertCard(simulation, 1);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.enterPassword(simulation, "42");
-        Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 
     /**
@@ -76,7 +68,7 @@ public class AtmTestFixture {
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
-    @Test
+/*    @Test
     public void testDepositing$40IntoChecking()
             throws IllegalAccessException, AWTException, NoSuchFieldException, InterruptedException,
             NoSuchMethodException, InvocationTargetException {
@@ -97,7 +89,7 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-    }
+    }*/
 
     /**
      * Tests withdrawal $40 from the checking account for the fixture's account.
@@ -108,7 +100,7 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws InterruptedException
      */
-    @Test
+/*    @Test
     public void test$40WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -125,7 +117,7 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-    }
+    }*/
 
     /**
      * Tests withdrawal $200 from the checking account for the fixture's account.
@@ -135,7 +127,7 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws InterruptedException
      */
-    @Test
+/*    @Test
     public void testWithdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -150,7 +142,7 @@ public class AtmTestFixture {
             fail("WITHDRAW INSUFFICIENT FUNDS FAILED: Did not display proper message at end of test!\n");
         if (take != null)
             fail("WITHDRAWAL FAILED: The ATM did not stop a withdrawal that was greater than its cash on hand!");
-    }
+    }*/
 
     /**
      * Tests making a balance inquiry the checking account for the fixture's account.
@@ -164,10 +156,12 @@ public class AtmTestFixture {
     @Test
     public void testBalanceInquiryChecking()
             throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException {
+        turnATMOffAndAddTwenties(10);
+        insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
+        Thread.sleep(TestUtil.LONG_SLEEP * 3);
         Button take = TestUtil.checkForReceipt(simulation);
         if (take == null) {
             cancelForNextTest();
@@ -175,8 +169,8 @@ public class AtmTestFixture {
         }
         for (ActionListener actionListener : take.getActionListeners())
             actionListener.actionPerformed(null);
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
+        turnATMOff();
+        Thread.sleep((int) (TestUtil.MEDIUM_SLEEP));
     }
 
     /**
@@ -188,7 +182,7 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
-    @Test
+/*    @Test
     public void testTransferFunds()
             throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException
     {
@@ -211,7 +205,9 @@ public class AtmTestFixture {
             actionListener.actionPerformed(null);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);//Thing prompts for another transaction
         Thread.sleep(TestUtil.SHORT_SLEEP);
-    }
+    }*/
+
+    // Support Methods for Tests...
 
     /**
      * Support method for getting the simulation to the
@@ -226,5 +222,56 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    /**
+     * Support method for starting ATM and inserting initial money
+     * @param initTwenties
+     * @throws InterruptedException
+     * @throws AWTException
+     * @throws IllegalAccessException
+     * @throws NoSuchFieldException
+     */
+    private void turnATMOffAndAddTwenties(int initTwenties)
+        throws InterruptedException, AWTException, IllegalAccessException, NoSuchFieldException{
+        if(initTwenties < 1)
+            fail("Support method fail: Can't initialize ATM with less than 1 twenty");
+        TestUtil.turnAtmOn(simulation);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.setInitialCash(simulation, initTwenties);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    /**
+     * Support method for inserting card and entering pin
+     * @param cardNumber
+     * @param pin
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     * @throws AWTException
+     * @throws InterruptedException
+     */
+    private void insertCard(int cardNumber, String pin)
+        throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException{
+        TestUtil.insertCard(simulation, cardNumber);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.enterPassword(simulation, pin);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    /**
+     * Support method for turning off the atm
+     * @throws AWTException
+     * @throws InterruptedException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    private void turnATMOff()
+        throws AWTException, InterruptedException, NoSuchFieldException, IllegalAccessException{
+        TestUtil.cancelTrans(TestUtil.Button.CANCEL);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
+        Thread.sleep(TestUtil.LONG_SLEEP);
+        TestUtil.turnAtmOff(simulation);
     }
 }

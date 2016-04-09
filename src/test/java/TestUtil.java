@@ -159,9 +159,27 @@ public class TestUtil {
         Panel opPanel = (Panel) getObjectByField(simulation, "operatorPanel");
         Component[] components = opPanel.getComponents();
         java.awt.Button button = (java.awt.Button) ((Panel) components[2]).getComponent(0);
-        for (ActionListener actionListener : button.getActionListeners()) {
-            actionListener.actionPerformed(null);
-        }
+        if (button.getLabel().compareTo(" ON ") == 0)
+            for (ActionListener actionListener : button.getActionListeners())
+                actionListener.actionPerformed(null);
+    }
+
+    /**
+     * Turns off the atm associated with the simulation by simulating an event
+     * on the button that turns the atm off.
+     *
+     * @param simulation The current simulation.
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
+    public static void turnAtmOff(Simulation simulation)
+            throws NoSuchFieldException, IllegalAccessException {
+        Panel opPanel = (Panel) getObjectByField(simulation, "operatorPanel");
+        Component[] components = opPanel.getComponents();
+        java.awt.Button button = (java.awt.Button) ((Panel) components[2]).getComponent(0);
+        if (button.getLabel().compareTo("OFF") == 0)
+            for (ActionListener actionListener : button.getActionListeners())
+                actionListener.actionPerformed(null);
     }
 
     /**
