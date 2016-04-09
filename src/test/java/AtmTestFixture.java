@@ -156,7 +156,7 @@ public class AtmTestFixture {
     @Test
     public void testBalanceInquiryChecking()
             throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException {
-        turnATMOffAndAddTwenties(10);
+        turnATMOnAndAddTwenties(10);
         insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -232,7 +232,7 @@ public class AtmTestFixture {
      * @throws IllegalAccessException
      * @throws NoSuchFieldException
      */
-    private void turnATMOffAndAddTwenties(int initTwenties)
+    private void turnATMOnAndAddTwenties(int initTwenties)
         throws InterruptedException, AWTException, IllegalAccessException, NoSuchFieldException{
         if(initTwenties < 1)
             fail("Support method fail: Can't initialize ATM with less than 1 twenty");
