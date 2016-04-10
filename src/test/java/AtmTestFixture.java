@@ -98,24 +98,22 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws InterruptedException
      */
-/*    @Test
+    @Test
     public void test$40WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+        turnATMOnAndAddTwenties(5);
+        insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3.5));
-        Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null) {
-            cancelForNextTest();
-            fail("WITHDRAWAL FAILED: No receipt printed for withdrawal\n");
-        }
-        for (ActionListener actionListener : take.getActionListeners())
-            actionListener.actionPerformed(null);
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-    }*/
+        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3));
+        boolean successful = TestUtil.checkForReceipt(simulation) != null;
+        turnATMOff();
+        Thread.sleep(TestUtil.MEDIUM_SLEEP);
+        if (!successful)
+            fail("Withdrawal: withdrawal from checking was unsuccessful!");
+    }
 
     /**
      * Tests withdrawal $200 from the checking account for the fixture's account.
