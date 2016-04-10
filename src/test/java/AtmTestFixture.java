@@ -68,10 +68,12 @@ public class AtmTestFixture {
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      */
-/*    @Test
+    @Test
     public void testDepositing$40IntoChecking()
             throws IllegalAccessException, AWTException, NoSuchFieldException, InterruptedException,
             NoSuchMethodException, InvocationTargetException {
+        turnATMOnAndAddTwenties(5);
+        insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.DEPOSIT);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
@@ -80,16 +82,12 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
         TestUtil.insertEnvelope(simulation);
         Thread.sleep(TestUtil.LONG_SLEEP * 3);
-        Button take = TestUtil.checkForReceipt(simulation);
-        if (take == null) {
-            cancelForNextTest();
-            fail("DEPOSIT FAILED: No receipt printed for deposit\n");
-        }
-        for (ActionListener actionListener : take.getActionListeners())
-            actionListener.actionPerformed(null);
-        TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-    }*/
+        boolean successful = TestUtil.checkForReceipt(simulation) != null;
+        turnATMOff();
+        Thread.sleep(TestUtil.MEDIUM_SLEEP);
+        if (!successful)
+            fail("DEPOSIT: Deposit into checking was unsuccessful!");
+    }
 
     /**
      * Tests withdrawal $40 from the checking account for the fixture's account.
