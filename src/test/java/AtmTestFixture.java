@@ -74,10 +74,7 @@ public class AtmTestFixture {
             NoSuchMethodException, InvocationTargetException {
         turnATMOnAndAddTwenties(5);
         insertCard(1, "42");
-        TestUtil.chooseTransactionType(TestUtil.Transaction.DEPOSIT);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
+        chooseTransactionAndAccountType(TestUtil.Transaction.DEPOSIT, TestUtil.Account.CHECKING);
         TestUtil.enterDepositAmount(simulation, 4000);
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
         TestUtil.insertEnvelope(simulation);
@@ -102,12 +99,9 @@ public class AtmTestFixture {
     public void test$40WithdrawalFromChecking() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         turnATMOnAndAddTwenties(5);
         insertCard(1, "42");
-        TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
-        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
-        Thread.sleep(TestUtil.SHORT_SLEEP);
+        chooseTransactionAndAccountType(TestUtil.Transaction.WITHDRAWAL, TestUtil.Account.CHECKING);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
-        Thread.sleep((int) (TestUtil.LONG_SLEEP * 3));
+        Thread.sleep(TestUtil.LONG_SLEEP * 3);
         boolean successful = TestUtil.checkForReceipt(simulation) != null;
         turnATMOff();
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
@@ -253,7 +247,7 @@ public class AtmTestFixture {
 
     /**
      * Support method for starting ATM and inserting initial money
-     * @param initTwenties
+     * @param initTwenties The number of twenties to initialize the ATM with.
      * @throws InterruptedException
      * @throws AWTException
      * @throws IllegalAccessException
@@ -269,8 +263,8 @@ public class AtmTestFixture {
 
     /**
      * Support method for inserting card and entering pin
-     * @param cardNumber
-     * @param pin
+     * @param cardNumber The given card number.
+     * @param pin The given pin.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
@@ -298,5 +292,13 @@ public class AtmTestFixture {
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
         Thread.sleep(TestUtil.LONG_SLEEP);
         TestUtil.turnAtmOff(simulation);
+    }
+
+    private void chooseTransactionAndAccountType(TestUtil.Transaction transaction, TestUtil.Account account)
+            throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException {
+        TestUtil.chooseTransactionType(transaction);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
+        TestUtil.chooseAccountType(account);
+        Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 }
