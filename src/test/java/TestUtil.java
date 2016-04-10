@@ -414,6 +414,11 @@ public class TestUtil {
         new Robot().keyPress(keyEvent);
     }
 
+    static void performActionOnButton(java.awt.Button button) {
+        Arrays.asList(button.getActionListeners())
+                .forEach(l -> l.actionPerformed(null));
+    }
+
     /**
      * A test of the TestUtil functionality.
      *

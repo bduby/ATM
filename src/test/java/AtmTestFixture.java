@@ -33,6 +33,7 @@ public class AtmTestFixture {
     /**
      * Sets up the test fixture with an instance of the ATMMain class
      * and its associated simulation and atm instances.
+     *
      * @throws UnknownHostException
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
@@ -79,17 +80,18 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
         TestUtil.insertEnvelope(simulation);
         Thread.sleep(TestUtil.LONG_SLEEP * 3);
-        boolean successful = TestUtil.checkForReceipt(simulation) != null;
+        Button button = TestUtil.checkForReceipt(simulation);
+        boolean successful = button != null;
         turnATMOff();
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
-        if (!successful)
-            fail("DEPOSIT: Deposit into checking was unsuccessful!");
+        checkForSuccessAndPerformAction(button, successful, "DEPOSIT: Deposit into checking was unsuccessful!");
     }
 
     /**
      * Tests withdrawal $40 from the checking account for the fixture's account.
      * Pass/Fail is determined by the visibility of the "Take receipt" button
      * which only appears if the withdrawal was a success.
+     *
      * @throws IllegalAccessException
      * @throws AWTException
      * @throws NoSuchFieldException
@@ -102,11 +104,11 @@ public class AtmTestFixture {
         chooseTransactionAndAccountType(TestUtil.Transaction.WITHDRAWAL, TestUtil.Account.CHECKING);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.FORTY);
         Thread.sleep(TestUtil.LONG_SLEEP * 3);
-        boolean successful = TestUtil.checkForReceipt(simulation) != null;
+        Button button = TestUtil.checkForReceipt(simulation);
+        boolean successful = button != null;
         turnATMOff();
         Thread.sleep(TestUtil.MEDIUM_SLEEP);
-        if (!successful)
-            fail("Withdrawal: withdrawal from checking was unsuccessful!");
+        checkForSuccessAndPerformAction(button, successful, "Withdrawal: withdrawal from checking was unsuccessful!");
     }
 
     /**
@@ -118,7 +120,8 @@ public class AtmTestFixture {
      * @throws InterruptedException
      */
 /*    @Test
-    public void testWithdrawInsufficientFunds() throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+    public void testWithdrawInsufficientFunds()
+    throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
@@ -138,6 +141,7 @@ public class AtmTestFixture {
      * Tests making a balance inquiry the checking account for the fixture's account.
      * Pass/Fail is determined by the visibility of the "Take receipt" button
      * which only appears if the deposit was a success.
+     *
      * @throws IllegalAccessException
      * @throws AWTException
      * @throws NoSuchFieldException
@@ -159,14 +163,14 @@ public class AtmTestFixture {
             fail("BALANCE INQUIRY FAILED: ATM was not Insert Card prompt.\n");
 
         theDisplay = TestUtil.getCurrentDisplay(simulation);
-        if (theDisplay[0].getText().compareTo("Please choose transaction type") == 0){
+        if (theDisplay[0].getText().compareTo("Please choose transaction type") == 0) {
             TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
             Thread.sleep(TestUtil.SHORT_SLEEP);
         } else
             fail("BALANCE INQUIRY FAILED: ATM was not Transaction Select prompt.\n");
 
         theDisplay = TestUtil.getCurrentDisplay(simulation);
-        if (theDisplay[0].getText().compareTo("Account to inquire from") == 0){
+        if (theDisplay[0].getText().compareTo("Account to inquire from") == 0) {
             TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
             Thread.sleep(TestUtil.LONG_SLEEP * 3);
         } else
@@ -234,11 +238,12 @@ public class AtmTestFixture {
      * Support method for getting the simulation to the
      * Select Transaction screen, to prep for the next test
      * before failing.
+     *
      * @throws InterruptedException
      * @throws AWTException
      */
     private void cancelForNextTest()
-            throws InterruptedException, AWTException{
+            throws InterruptedException, AWTException {
         TestUtil.cancelTrans(TestUtil.Button.CANCEL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
@@ -247,6 +252,7 @@ public class AtmTestFixture {
 
     /**
      * Support method for starting ATM and inserting initial money
+     *
      * @param initTwenties The number of twenties to initialize the ATM with.
      * @throws InterruptedException
      * @throws AWTException
@@ -254,7 +260,7 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      */
     private void turnATMOnAndAddTwenties(int initTwenties)
-        throws InterruptedException, AWTException, IllegalAccessException, NoSuchFieldException{
+            throws InterruptedException, AWTException, IllegalAccessException, NoSuchFieldException {
         TestUtil.turnAtmOn(simulation);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.setInitialCash(simulation, initTwenties);
@@ -263,15 +269,16 @@ public class AtmTestFixture {
 
     /**
      * Support method for inserting card and entering pin
+     *
      * @param cardNumber The given card number.
-     * @param pin The given pin.
+     * @param pin        The given pin.
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      * @throws AWTException
      * @throws InterruptedException
      */
     private void insertCard(int cardNumber, String pin)
-        throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException{
+            throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException {
         TestUtil.insertCard(simulation, cardNumber);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.enterPassword(simulation, pin);
@@ -280,13 +287,14 @@ public class AtmTestFixture {
 
     /**
      * Support method for turning off the atm
+     *
      * @throws AWTException
      * @throws InterruptedException
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
     private void turnATMOff()
-        throws AWTException, InterruptedException, NoSuchFieldException, IllegalAccessException{
+            throws AWTException, InterruptedException, NoSuchFieldException, IllegalAccessException {
         TestUtil.cancelTrans(TestUtil.Button.CANCEL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseYesOrNo(TestUtil.Choice.YES);
@@ -300,5 +308,12 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(account);
         Thread.sleep(TestUtil.SHORT_SLEEP);
+    }
+
+    private void checkForSuccessAndPerformAction(Button button, boolean successful, String msg) {
+        if (!successful)
+            fail(msg);
+        else
+            TestUtil.performActionOnButton(button);
     }
 }
