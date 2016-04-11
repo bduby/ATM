@@ -130,19 +130,12 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-        //Button take = TestUtil.checkForReceipt(simulation);
         Label[] theDisplay = TestUtil.getCurrentDisplay(simulation);
-
-        if (theDisplay[0].getText().equals("Insufficient cash available")){
-            cancelForNextTest();
-            turnATMOff();
-        }
-        else{
+        boolean passed = theDisplay[0].getText().equals("Insufficient cash available");
+        cancelForNextTest();
+        turnATMOff();
+        if (!passed)
             fail("WITHDRAWAL FAILED: The ATM did not stop a withdrawal that was greater than its cash on hand!");
-            cancelForNextTest();
-            turnATMOff();
-        }
-
     }
 
     /**
