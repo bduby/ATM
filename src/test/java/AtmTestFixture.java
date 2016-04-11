@@ -119,23 +119,29 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws InterruptedException
      */
-/*    @Test
+    @Test
     public void testWithdrawInsufficientFunds()
     throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
+        turnATMOnAndAddTwenties(10);
+        insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
         Thread.sleep(TestUtil.SHORT_SLEEP);
         TestUtil.chooseWithdrawalType(TestUtil.WithdrawalAmount.TWO_HUNDRED);
         Thread.sleep(TestUtil.SHORT_SLEEP);
-        Button take = TestUtil.checkForReceipt(simulation);
+        //Button take = TestUtil.checkForReceipt(simulation);
         Label[] theDisplay = TestUtil.getCurrentDisplay(simulation);
-        cancelForNextTest();
-        if (!theDisplay[0].getText().equals("Insufficient cash available"))
-            fail("WITHDRAW INSUFFICIENT FUNDS FAILED: Did not display proper message at end of test!\n");
-        if (take != null)
+        if (theDisplay[0].getText().equals("Insufficient cash available")){
+            //cancelForNextTest();
+            turnATMOff();
+        }
+        else{
             fail("WITHDRAWAL FAILED: The ATM did not stop a withdrawal that was greater than its cash on hand!");
-    }*/
+            turnATMOff();
+        }
+
+    }
 
     /**
      * Tests making a balance inquiry the checking account for the fixture's account.
