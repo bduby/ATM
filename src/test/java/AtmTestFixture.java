@@ -155,27 +155,20 @@ public class AtmTestFixture {
         if (theDisplay[0].getText().compareTo("Not currently available") == 0)
             turnATMOnAndAddTwenties(10);
         else
-            fail("BALANCE INQUIRY FAILED: could not turn ATM on, it wasn't off.\n");
+            fail("BALANCE INQUIRY FAILED: ATM was not off, could not turn ATM on.\n");
 
         theDisplay = TestUtil.getCurrentDisplay(simulation);
         if (theDisplay[0].getText().compareTo("Please insert your card") == 0)
             insertCard(1, "42");
         else
-            fail("BALANCE INQUIRY FAILED: ATM was not Insert Card prompt.\n");
+            fail("BALANCE INQUIRY FAILED: ATM was not at Insert Card prompt, could not insert card.\n");
 
         theDisplay = TestUtil.getCurrentDisplay(simulation);
         if (theDisplay[0].getText().compareTo("Please choose transaction type") == 0) {
-            TestUtil.chooseTransactionType(TestUtil.Transaction.BALANCE_INQUIRY);
-            Thread.sleep(TestUtil.SHORT_SLEEP);
-        } else
-            fail("BALANCE INQUIRY FAILED: ATM was not Transaction Select prompt.\n");
-
-        theDisplay = TestUtil.getCurrentDisplay(simulation);
-        if (theDisplay[0].getText().compareTo("Account to inquire from") == 0) {
-            TestUtil.chooseAccountType(TestUtil.Account.CHECKING);
+            chooseTransactionAndAccountType(TestUtil.Transaction.BALANCE_INQUIRY, TestUtil.Account.CHECKING);
             Thread.sleep(TestUtil.LONG_SLEEP * 3);
         } else
-            fail("BALANCE INQUIRY FAILED: ATM was not at Account Select prompt.\n");
+            fail("BALANCE INQUIRY FAILED: Error selecting transaction and account types.\n");
 
 
         theDisplay = TestUtil.getCurrentDisplay(simulation);
@@ -183,7 +176,7 @@ public class AtmTestFixture {
             Button take = TestUtil.checkForReceipt(simulation);
             if (take == null) {
                 cancelForNextTest();
-                fail("BALANCE INQUIRY FAILED: No receipt printed for balance inquiry.\n");
+                fail("BALANCE INQUIRY FAILED: No receipt printed for balance inquiry of checking account.\n");
             }
             for (ActionListener actionListener : take.getActionListeners())
                 actionListener.actionPerformed(null);
@@ -303,6 +296,16 @@ public class AtmTestFixture {
         TestUtil.turnAtmOff(simulation);
     }
 
+    /**
+     * Support method for choosing transaction and account types
+     *
+     * @param transaction The type of transaction you would like to make
+     * @param account The account you would like to act on
+     * @throws InterruptedException
+     * @throws AWTException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     private void chooseTransactionAndAccountType(TestUtil.Transaction transaction, TestUtil.Account account)
             throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException {
         TestUtil.chooseTransactionType(transaction);
@@ -311,6 +314,13 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
     }
 
+    /**
+     * Support method for checking success, and handling failure or taking receipt
+     *
+     * @param button The button to be acted on if successful
+     * @param successful The boolean that determines success
+     * @param msg The message to fail with
+     */
     private void checkForSuccessAndPerformAction(Button button, boolean successful, String msg) {
         if (!successful)
             fail(msg);
