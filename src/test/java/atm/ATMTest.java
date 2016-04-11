@@ -38,19 +38,19 @@ public class ATMTest {
     //Ensure getters return expected values (ex. id = id still when getting it.
     //These getters are very specific:  What I put in should be spat right back out, since I didn't modify any of them.
     @Test
-    public void testGetID()
+    public void testGetID() throws Exception
     {
         assertTrue(theatm.getID() == id);//make sure the ids match for what was given, and for the accessor of id.
     }
 
     @Test
-    public void testGetPlace()
+    public void testGetPlace() throws Exception
     {
         assertEquals(place, theatm.getPlace());
     }
 
     @Test
-    public void testGetBankName()
+    public void testGetBankName() throws Exception
     {
         assertEquals(bankname, theatm.getBankName());
     }
@@ -58,49 +58,49 @@ public class ATMTest {
 
     //these are more vague getter tests:  I'm only going to test that the instance matches what should be outputted.
     @Test
-    public void testGetCardReader()
+    public void testGetCardReader() throws Exception
     {
         assert(theatm.getCardReader() instanceof CardReader);
     }
 
     @Test
-    public void testGetCashDispenser()
+    public void testGetCashDispenser() throws Exception
     {
         assert(theatm.getCashDispenser() instanceof CashDispenser);
     }
 
     @Test
-    public void testGetCustomerConsole()
+    public void testGetCustomerConsole() throws Exception
     {
         assert(theatm.getCustomerConsole() instanceof CustomerConsole);
     }
 
     @Test
-    public void testGetEnvelopeAcceptor()
+    public void testGetEnvelopeAcceptor() throws Exception
     {
         assert(theatm.getEnvelopeAcceptor() instanceof EnvelopeAcceptor);
     }
 
     @Test
-    public void testGetLog()
+    public void testGetLog() throws Exception
     {
         assert(theatm.getLog() instanceof Log);
     }
 
     @Test
-    public void testGetNetworkToBank()
+    public void testGetNetworkToBank() throws Exception
     {
         assert(theatm.getNetworkToBank() instanceof NetworkToBank);
     }
 
     @Test
-    public void testGetOperatorPanel()
+    public void testGetOperatorPanel() throws Exception
     {
         assert(theatm.getOperatorPanel() instanceof OperatorPanel);
     }
 
     @Test
-    public void testGetRecieptPrinter()
+    public void testGetRecieptPrinter() throws Exception
     {
         assert(theatm.getReceiptPrinter() instanceof ReceiptPrinter);
     }

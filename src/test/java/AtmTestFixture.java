@@ -201,6 +201,37 @@ public class AtmTestFixture {
      * @throws NoSuchFieldException
      * @throws IllegalAccessException
      */
+    @Test
+    public void testTransferFromCheckingToSaving()
+            throws NoSuchFieldException, IllegalAccessException, AWTException, InterruptedException
+    {
+        turnATMOnAndAddTwenties(5);//put some money in this bank, yo.
+        insertCard(1, "42");//insert the pin, like we do with user input.
+        TestUtil.chooseTransactionType(TestUtil.Transaction.TRANSFER);//I will do a transfer today.
+        Thread.sleep(TestUtil.SHORT_SLEEP);//sleep for a bit, threads and mutex locks.
+        TestUtil.chooseAccountType(TestUtil.Account.CHECKING);//transferring from checking
+        Thread.sleep(TestUtil.SHORT_SLEEP);//sleep for a bit, threads and mutex locks.
+        TestUtil.chooseAccountType(TestUtil.Account.SAVINGS);//transferring to savings account
+        Thread.sleep(TestUtil.SHORT_SLEEP);//sleep for a bit, threads and mutex locks.
+        TestUtil.enterDepositAmount(simulation, 40);//deposit is just entering input as though it was a number on the keyboard.
+        //so just use this...
+        Thread.sleep(TestUtil.LONG_SLEEP*3);//wait a long time, due to animations of the reciept.
+        Button takereceiptbutton = TestUtil.checkForReceipt(simulation);//check to see that a button is there
+        assertNotNull(takereceiptbutton);//make sure the button isn't null.
+        turnATMOff();//gonna turn the thing off when i'm done, just because the other tests probably need this off.
+        Thread.sleep(TestUtil.MEDIUM_SLEEP);//sleep for a decent amount.
+
+
+
+
+
+
+    }
+
+
+
+
+
 /*    @Test
     public void testTransferFunds()
             throws InterruptedException, AWTException, NoSuchFieldException, IllegalAccessException

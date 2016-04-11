@@ -1,8 +1,13 @@
 package simulation;
 
+import atm.ATM;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.InetAddress;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author Robert Wilk
@@ -10,9 +15,21 @@ import org.junit.Test;
  */
 public class SimulationTest {
 
-    @Before
-    public void setUp() throws Exception {
+    ATM theatm;//Luckily, this is somewhat like a built in inversion of control.  Maybe.  It is instantiated outside the constructor.
+    int id;
+    String place;
+    String bankname;
+    Simulation thesim;
 
+    @Before
+    public void setUp() throws Exception
+    {
+        id = 42;//the id to insert
+        place = "Gordon College";
+        bankname = "First National Bank of Podunk";
+        theatm = new ATM(id, place, bankname, InetAddress.getLocalHost());
+        //copied this instantiation from ATMMain.
+        thesim = new Simulation(theatm);//make the actual thing we're testing.
     }
 
     @After
@@ -20,88 +37,11 @@ public class SimulationTest {
 
     }
 
+
+    //getters
     @Test
-    public void testGetInstance() throws Exception {
-
-    }
-
-    @Test
-    public void testGetInitialCash() throws Exception {
-
-    }
-
-    @Test
-    public void testReadCard() throws Exception {
-
-    }
-
-    @Test
-    public void testEjectCard() throws Exception {
-
-    }
-
-    @Test
-    public void testRetainCard() throws Exception {
-
-    }
-
-    @Test
-    public void testClearDisplay() throws Exception {
-
-    }
-
-    @Test
-    public void testDisplay() throws Exception {
-
-    }
-
-    @Test
-    public void testReadInput() throws Exception {
-
-    }
-
-    @Test
-    public void testDispenseCash() throws Exception {
-
-    }
-
-    @Test
-    public void testAcceptEnvelope() throws Exception {
-
-    }
-
-    @Test
-    public void testPrintReceiptLine() throws Exception {
-
-    }
-
-    @Test
-    public void testPrintLogLine() throws Exception {
-
-    }
-
-    @Test
-    public void testSendMessage() throws Exception {
-
-    }
-
-    @Test
-    public void testSwitchChanged() throws Exception {
-
-    }
-
-    @Test
-    public void testCardInserted() throws Exception {
-
-    }
-
-    @Test
-    public void testGetGUI() throws Exception {
-
-    }
-
-    @Test
-    public void testGetSimulatedBank() throws Exception {
+    public void testGetInstance() throws Exception {//this getter allows another class to get the Simulation itself
+        assert(thesim.getInstance() instanceof Simulation);
 
     }
 }
