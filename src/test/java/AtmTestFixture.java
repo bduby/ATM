@@ -122,7 +122,7 @@ public class AtmTestFixture {
     @Test
     public void testWithdrawInsufficientFunds()
     throws NoSuchFieldException, IllegalAccessException, InterruptedException, AWTException {
-        turnATMOnAndAddTwenties(10);
+        turnATMOnAndAddTwenties(5);
         insertCard(1, "42");
         TestUtil.chooseTransactionType(TestUtil.Transaction.WITHDRAWAL);
         Thread.sleep(TestUtil.SHORT_SLEEP);
@@ -132,12 +132,14 @@ public class AtmTestFixture {
         Thread.sleep(TestUtil.SHORT_SLEEP);
         //Button take = TestUtil.checkForReceipt(simulation);
         Label[] theDisplay = TestUtil.getCurrentDisplay(simulation);
+
         if (theDisplay[0].getText().equals("Insufficient cash available")){
-            //cancelForNextTest();
+            cancelForNextTest();
             turnATMOff();
         }
         else{
             fail("WITHDRAWAL FAILED: The ATM did not stop a withdrawal that was greater than its cash on hand!");
+            cancelForNextTest();
             turnATMOff();
         }
 
